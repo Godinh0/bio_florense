@@ -6,6 +6,10 @@ import right_board from "../assets/right_board.svg";
 import witness from "../assets/witness.svg";
 import witnessResume from "../assets/witness_resume.svg";
 import OlegarioDepo from "../assets/olegario_depo.svg";
+import GeremiasDepo from "../assets/geremias_depo.svg";
+import AndreyDepo from "../assets/andrey_depo.svg";
+import ChiaraDepo from "../assets/chiara_depo.svg";
+import MarietaDepo from "../assets/marieta_depo.svg";
 import map from "../assets/map.svg";
 import Menu from "./Menu";
 import { Popover } from "antd";
@@ -18,7 +22,11 @@ const OfficeScreen = () => {
   const [isHoveredWitness, setIsHoveredWitness] = useState(false);
   const [isMapVisible, setIsMapVisible] = useState(false);
   const [isWitnessResumeVisible, setIsWitnessResumeVisible] = useState(false);
+  const [isAndreyDepoVisible, setIsAndreyDepoVisible] = useState(false);
   const [isOlegarioDepoVisible, setIsOlegarioDepoVisible] = useState(false);
+  const [isGeremiasDepoVisible, setIsGeremiasDepoVisible] = useState(false);
+  const [isChiaraDepoVisible, setIsChiaraDepoVisible] = useState(false);
+  const [isMarietaDepoVisible, setIsMarietaDepoVisible] = useState(false);
 
   const menuOptionsLeftBoard = [
     {
@@ -59,19 +67,19 @@ const OfficeScreen = () => {
     },
     {
         title: "Marieta",
-        onClick: () => {},
+        onClick: () => setIsMarietaDepoVisible(true),
     },
     {
         title: "Chiara",
-        onClick: () => {},
+        onClick: () => setIsChiaraDepoVisible(true),
     },
     {
         title: "Andrey",
-        onClick: () => {},
+        onClick: () => setIsAndreyDepoVisible(true),
     },
     {
         title: "Geremias",
-        onClick: () => {},
+        onClick: () => setIsGeremiasDepoVisible(true),
     },
   ];
   const menuOptionsWitness= [
@@ -184,9 +192,29 @@ const OfficeScreen = () => {
         imageSrc={witnessResume}
       />
       <ImageModal
+        isVisible={isAndreyDepoVisible}
+        onClose={()=>setIsAndreyDepoVisible(false)}
+        imageSrc={AndreyDepo}
+      />
+      <ImageModal
+        isVisible={isGeremiasDepoVisible}
+        onClose={()=>setIsGeremiasDepoVisible(false)}
+        imageSrc={GeremiasDepo}
+      />
+      <ImageModal
         isVisible={isOlegarioDepoVisible}
         onClose={()=>setIsOlegarioDepoVisible(false)}
         imageSrc={OlegarioDepo}
+      />
+      <ImageModal
+        isVisible={isMarietaDepoVisible}
+        onClose={()=>setIsMarietaDepoVisible(false)}
+        imageSrc={MarietaDepo}
+      />
+      <ImageModal
+        isVisible={isChiaraDepoVisible}
+        onClose={()=>setIsChiaraDepoVisible(false)}
+        imageSrc={ChiaraDepo}
       />
     </div>
   );
