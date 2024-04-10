@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import office_background from "../assets/office_background.png";
-import left_board from "../assets/left_board.svg";
-import evidences from "../assets/evidences.svg";
-import right_board from "../assets/right_board.svg";
-import witness from "../assets/witness.svg";
+import lab_background from "../assets/lab_background.png";
+import left_shelf from "../assets/left_shelf.svg";
+import micro from "../assets/micro.svg";
+import right_shelf from "../assets/right_shelf.svg";
+import results from "../assets/results.svg";
 import witnessResume from "../assets/witness_resume.svg";
 import OlegarioDepo from "../assets/olegario_depo.svg";
 import GeremiasDepo from "../assets/geremias_depo.svg";
@@ -15,11 +15,11 @@ import Menu from "./Menu";
 import { Popover } from "antd";
 import ImageModal from "./ImageModal";
 
-const OfficeScreen = () => {
+const LabScreen = () => {
   const [isHoveredLeftBoard, setIsHoveredLeftBoard] = useState(false);
-  const [isHoveredEvidences, setIsHoveredEvidences] = useState(false);
+  const [isHoveredMicro, setIsHoveredMicro] = useState(false);
   const [isHoveredRightBoard, setIsHoveredRightBoard] = useState(false);
-  const [isHoveredWitness, setIsHoveredWitness] = useState(false);
+  const [isHoveredResults, setIsHoveredResults] = useState(false);
   const [isMapVisible, setIsMapVisible] = useState(false);
   const [isWitnessResumeVisible, setIsWitnessResumeVisible] = useState(false);
   const [isAndreyDepoVisible, setIsAndreyDepoVisible] = useState(false);
@@ -28,17 +28,7 @@ const OfficeScreen = () => {
   const [isChiaraDepoVisible, setIsChiaraDepoVisible] = useState(false);
   const [isMarietaDepoVisible, setIsMarietaDepoVisible] = useState(false);
 
-  const menuOptionsLeftBoard = [
-    {
-      title: "Mapa",
-      onClick: () => setIsMapVisible(true),
-    },
-    {
-      title: "Testemunhas",
-      onClick: () => setIsWitnessResumeVisible(true),
-    },
-  ];
-  const menuOptionsEvidences = [
+  const menuOptionsMicro = [
     {
       title: "Digitais",
       onClick: () => {},
@@ -82,25 +72,25 @@ const OfficeScreen = () => {
         onClick: () => setIsGeremiasDepoVisible(true),
     },
   ];
-  const menuOptionsWitness= [
+  const menuOptionsResults= [
     {
-      title: "Olegário",
+      title: "Exame Necroscópico",
       onClick: () => {},
     },
     {
-        title: "Marieta",
+        title: "Exame de Sangue",
         onClick: () => {},
     },
     {
-        title: "Chiara",
+        title: "DNA dos Cabelos",
         onClick: () => {},
     },
     {
-        title: "Andrey",
+        title: "Análise da Água",
         onClick: () => {},
     },
     {
-        title: "Geremias",
+        title: "Exame Anatomopatológico",
         onClick: () => {},
     },
   ];
@@ -113,7 +103,7 @@ const OfficeScreen = () => {
       style={{
         width: "100%",
         transition: "transform 0.3s ease",
-        transform: isHovered ? "scale(1.1)" : "scale(1)",
+        transform: isHovered ? "scale(1.05)" : "scale(1)",
       }}
     />
   );
@@ -129,7 +119,7 @@ const OfficeScreen = () => {
       }}
     >
       <img
-        src={office_background}
+        src={lab_background}
         alt="Office Background"
         style={{
           width: "100%",
@@ -140,47 +130,43 @@ const OfficeScreen = () => {
           zIndex: -1,
         }}
       />
-      <div style={{ position: "absolute", top: "5%", left: "5%", width: "30vw", zIndex: 1 }}>
-        <Popover placement="right" content={<Menu options={menuOptionsLeftBoard} />} trigger="hover">
+      <div style={{ position: "absolute", top: "10%", left: "2%", width: "45vw", zIndex: 1 }}>
           <div
             onMouseEnter={() => setIsHoveredLeftBoard(true)}
             onMouseLeave={() => setIsHoveredLeftBoard(false)}
           >
-            {generatePopoverContent(left_board, "Left Board", isHoveredLeftBoard)}
+            {generatePopoverContent(left_shelf, "Left Board", isHoveredLeftBoard)}
           </div>
-        </Popover>
       </div>
       {/* Similar wrapping for other images */}
-      <div style={{ position: "absolute", bottom: "5%", left: "5%", width: "25vw", zIndex: 1 }}>
-        <Popover placement="right" content={<Menu options={menuOptionsEvidences}/>} trigger="hover">
+      <div style={{ position: "absolute", bottom: "30%", left: "25%", width: "25vw", zIndex: 1 }}>
+        <Popover placement="right" content={<Menu options={menuOptionsMicro}/>} trigger="hover">
           <div
-            onMouseEnter={() => setIsHoveredEvidences(true)}
-            onMouseLeave={() => setIsHoveredEvidences(false)}
+            onMouseEnter={() => setIsHoveredMicro(true)}
+            onMouseLeave={() => setIsHoveredMicro(false)}
           >
-            {generatePopoverContent(evidences, "Evidences", isHoveredEvidences)}
+            {generatePopoverContent(micro, "Micro", isHoveredMicro)}
           </div>
         </Popover>
       </div>
-      <div style={{ position: "absolute", top: "5%", right: "10%", width: "20vw", zIndex: 1 }}>
-        <Popover placement="left" content={<Menu options={menuOptionsRighBoard}/>} trigger="hover">
+      <div style={{ position: "absolute", top: "12%", right: "2%", width: "45vw", zIndex: 1 }}>
           <div
             onMouseEnter={() => setIsHoveredRightBoard(true)}
             onMouseLeave={() => setIsHoveredRightBoard(false)}
           >
-            {generatePopoverContent(right_board, "Right Board", isHoveredRightBoard)}
+            {generatePopoverContent(right_shelf, "Right Board", isHoveredRightBoard)}
           </div>
-        </Popover>
       </div>
-      <div style={{ position: "absolute", bottom: "25%", right: "2%", width: "15vw", zIndex: 1 }}>
-        <Popover placement="left" content={<Menu options={menuOptionsWitness}/>} trigger="hover">
+      <Popover placement="right" content={<Menu options={menuOptionsResults}/>} trigger="hover">
+      <div style={{ position: "absolute", bottom: "170px", right: "20px", width: "15vw", zIndex: 1 }}>
           <div
-            onMouseEnter={() => setIsHoveredWitness(true)}
-            onMouseLeave={() => setIsHoveredWitness(false)}
+            onMouseEnter={() => setIsHoveredResults(true)}
+            onMouseLeave={() => setIsHoveredResults(false)}
           >
-            {generatePopoverContent(witness, "Witness", isHoveredWitness)}
+            {generatePopoverContent(results, "Witness", isHoveredResults)}
           </div>
-        </Popover>
       </div>
+      </Popover>
       <ImageModal
         isVisible={isMapVisible}
         onClose={()=>setIsMapVisible(false)}
@@ -220,4 +206,4 @@ const OfficeScreen = () => {
   );
 };
 
-export default OfficeScreen;
+export default LabScreen;
