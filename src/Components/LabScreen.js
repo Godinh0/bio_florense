@@ -14,8 +14,11 @@ import map from "../assets/map.svg";
 import Menu from "./Menu";
 import { Popover } from "antd";
 import ImageModal from "./ImageModal";
+import MicroScreen from "./MicroScreen_1";
 
 const LabScreen = () => {
+  const [showLabScreen, setShowLabScreen] = useState(true);
+  const [showMicroScreen1, setShowMicroScreen1] = useState(false);
   const [isHoveredLeftBoard, setIsHoveredLeftBoard] = useState(false);
   const [isHoveredMicro, setIsHoveredMicro] = useState(false);
   const [isHoveredRightBoard, setIsHoveredRightBoard] = useState(false);
@@ -28,14 +31,14 @@ const LabScreen = () => {
   const [isChiaraDepoVisible, setIsChiaraDepoVisible] = useState(false);
   const [isMarietaDepoVisible, setIsMarietaDepoVisible] = useState(false);
 
+  const handleFacaCacoClick = () =>{
+    setShowMicroScreen1(true);
+    setShowLabScreen(false);
+  }
   const menuOptionsMicro = [
     {
-      title: "Digitais",
-      onClick: () => {},
-    },
-    {
         title: "Faca e Caco de Vidro",
-        onClick: () => {},
+        onClick: handleFacaCacoClick,
     },
     {
         title: "Fios de Cabelos e Pelos",
@@ -48,28 +51,6 @@ const LabScreen = () => {
     {
         title: "Amostra de orgãos",
         onClick: () => {},
-    },
-  ];
-  const menuOptionsRighBoard = [
-    {
-      title: "Olegário",
-      onClick: () => setIsOlegarioDepoVisible(true),
-    },
-    {
-        title: "Marieta",
-        onClick: () => setIsMarietaDepoVisible(true),
-    },
-    {
-        title: "Chiara",
-        onClick: () => setIsChiaraDepoVisible(true),
-    },
-    {
-        title: "Andrey",
-        onClick: () => setIsAndreyDepoVisible(true),
-    },
-    {
-        title: "Geremias",
-        onClick: () => setIsGeremiasDepoVisible(true),
     },
   ];
   const menuOptionsResults= [
@@ -109,100 +90,105 @@ const LabScreen = () => {
   );
 
   return (
-    <div
-      style={{
-        position: "relative",
-        width: "100vw",
-        height: "100vh",
-        margin: 0,
-        padding: 0,
-      }}
-    >
-      <img
-        src={lab_background}
-        alt="Office Background"
+    <>
+    {showLabScreen &&
+      <div
         style={{
-          width: "100%",
-          height: "100%",
-          position: "absolute",
-          top: 0,
-          left: 0,
-          zIndex: -1,
+          position: "relative",
+          width: "100vw",
+          height: "100vh",
+          margin: 0,
+          padding: 0,
         }}
-      />
-      <div style={{ position: "absolute", top: "10%", left: "2%", width: "45vw", zIndex: 1 }}>
-          <div
-            onMouseEnter={() => setIsHoveredLeftBoard(true)}
-            onMouseLeave={() => setIsHoveredLeftBoard(false)}
-          >
-            {generatePopoverContent(left_shelf, "Left Board", isHoveredLeftBoard)}
-          </div>
-      </div>
-      {/* Similar wrapping for other images */}
-      <div style={{ position: "absolute", bottom: "30%", left: "25%", width: "25vw", zIndex: 1 }}>
-        <Popover placement="right" content={<Menu options={menuOptionsMicro}/>} trigger="hover">
-          <div
-            onMouseEnter={() => setIsHoveredMicro(true)}
-            onMouseLeave={() => setIsHoveredMicro(false)}
-          >
-            {generatePopoverContent(micro, "Micro", isHoveredMicro)}
-          </div>
+      >
+        <img
+          src={lab_background}
+          alt="Office Background"
+          style={{
+            width: "100%",
+            height: "100%",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            zIndex: -1,
+          }}
+        />
+        <div style={{ position: "absolute", top: "10%", left: "2%", width: "45vw", zIndex: 1 }}>
+            <div
+              onMouseEnter={() => setIsHoveredLeftBoard(true)}
+              onMouseLeave={() => setIsHoveredLeftBoard(false)}
+            >
+              {generatePopoverContent(left_shelf, "Left Board", isHoveredLeftBoard)}
+            </div>
+        </div>
+        {/* Similar wrapping for other images */}
+        <div style={{ position: "absolute", bottom: "30%", left: "25%", width: "25vw", zIndex: 1 }}>
+          <Popover placement="right" content={<Menu options={menuOptionsMicro}/>} trigger="hover">
+            <div
+              onMouseEnter={() => setIsHoveredMicro(true)}
+              onMouseLeave={() => setIsHoveredMicro(false)}
+            >
+              {generatePopoverContent(micro, "Micro", isHoveredMicro)}
+            </div>
+          </Popover>
+        </div>
+        <div style={{ position: "absolute", top: "12%", right: "2%", width: "45vw", zIndex: 1 }}>
+            <div
+              onMouseEnter={() => setIsHoveredRightBoard(true)}
+              onMouseLeave={() => setIsHoveredRightBoard(false)}
+            >
+              {generatePopoverContent(right_shelf, "Right Board", isHoveredRightBoard)}
+            </div>
+        </div>
+        <Popover placement="right" content={<Menu options={menuOptionsResults}/>} trigger="hover">
+        <div style={{ position: "absolute", bottom: "170px", right: "20px", width: "15vw", zIndex: 1 }}>
+            <div
+              onMouseEnter={() => setIsHoveredResults(true)}
+              onMouseLeave={() => setIsHoveredResults(false)}
+            >
+              {generatePopoverContent(results, "Witness", isHoveredResults)}
+            </div>
+        </div>
         </Popover>
+        <ImageModal
+          isVisible={isMapVisible}
+          onClose={()=>setIsMapVisible(false)}
+          imageSrc={map}
+        />
+        <ImageModal
+          isVisible={isWitnessResumeVisible}
+          onClose={()=>setIsWitnessResumeVisible(false)}
+          imageSrc={witnessResume}
+        />
+        <ImageModal
+          isVisible={isAndreyDepoVisible}
+          onClose={()=>setIsAndreyDepoVisible(false)}
+          imageSrc={AndreyDepo}
+        />
+        <ImageModal
+          isVisible={isGeremiasDepoVisible}
+          onClose={()=>setIsGeremiasDepoVisible(false)}
+          imageSrc={GeremiasDepo}
+        />
+        <ImageModal
+          isVisible={isOlegarioDepoVisible}
+          onClose={()=>setIsOlegarioDepoVisible(false)}
+          imageSrc={OlegarioDepo}
+        />
+        <ImageModal
+          isVisible={isMarietaDepoVisible}
+          onClose={()=>setIsMarietaDepoVisible(false)}
+          imageSrc={MarietaDepo}
+        />
+        <ImageModal
+          isVisible={isChiaraDepoVisible}
+          onClose={()=>setIsChiaraDepoVisible(false)}
+          imageSrc={ChiaraDepo}
+        />
       </div>
-      <div style={{ position: "absolute", top: "12%", right: "2%", width: "45vw", zIndex: 1 }}>
-          <div
-            onMouseEnter={() => setIsHoveredRightBoard(true)}
-            onMouseLeave={() => setIsHoveredRightBoard(false)}
-          >
-            {generatePopoverContent(right_shelf, "Right Board", isHoveredRightBoard)}
-          </div>
-      </div>
-      <Popover placement="right" content={<Menu options={menuOptionsResults}/>} trigger="hover">
-      <div style={{ position: "absolute", bottom: "170px", right: "20px", width: "15vw", zIndex: 1 }}>
-          <div
-            onMouseEnter={() => setIsHoveredResults(true)}
-            onMouseLeave={() => setIsHoveredResults(false)}
-          >
-            {generatePopoverContent(results, "Witness", isHoveredResults)}
-          </div>
-      </div>
-      </Popover>
-      <ImageModal
-        isVisible={isMapVisible}
-        onClose={()=>setIsMapVisible(false)}
-        imageSrc={map}
-      />
-      <ImageModal
-        isVisible={isWitnessResumeVisible}
-        onClose={()=>setIsWitnessResumeVisible(false)}
-        imageSrc={witnessResume}
-      />
-      <ImageModal
-        isVisible={isAndreyDepoVisible}
-        onClose={()=>setIsAndreyDepoVisible(false)}
-        imageSrc={AndreyDepo}
-      />
-      <ImageModal
-        isVisible={isGeremiasDepoVisible}
-        onClose={()=>setIsGeremiasDepoVisible(false)}
-        imageSrc={GeremiasDepo}
-      />
-      <ImageModal
-        isVisible={isOlegarioDepoVisible}
-        onClose={()=>setIsOlegarioDepoVisible(false)}
-        imageSrc={OlegarioDepo}
-      />
-      <ImageModal
-        isVisible={isMarietaDepoVisible}
-        onClose={()=>setIsMarietaDepoVisible(false)}
-        imageSrc={MarietaDepo}
-      />
-      <ImageModal
-        isVisible={isChiaraDepoVisible}
-        onClose={()=>setIsChiaraDepoVisible(false)}
-        imageSrc={ChiaraDepo}
-      />
-    </div>
+    }
+    {showMicroScreen1&&<MicroScreen/>}
+   </>
   );
 };
 

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import OfficeScreen from "./Components/OfficeScreen";
 import LabScreen from "./Components/LabScreen";
+import MicroScreen from "./Components/MicroScreen_1";
 import { Button } from "antd";
 
 const App = () => {

@@ -1,60 +1,113 @@
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    position: relative;
-    background-color: lightgray;
-    overflow: hidden;
-    padding: 50px;
-  }
-  
-  .circle {
-    width: 100px;
-    height: 100px;
-    background-color: white;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: transform 0.3s ease-in-out;
-    margin: 0 10px;
-  }
-  
-  .circle:hover {
-    transform: scale(1.2);
-  }
-  
-  .circle img,
-  .circle-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-  }
-  
-  .title {
-    margin-top: px;
-    margin-left: 14px;
-  }
-  
-  .input {
-    background-color: darkgray;
-    height: 20;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
 
-  .ant-modal-content, .ant-modal-header{
-    background: transparent !important;
-    box-shadow: none !important;
-  }
-  .ant-modal-close-x{
-    background-color: white;
-    border-radius: 100%;
-    padding: 7px;
-  }
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  background-color: lightgray;
+  overflow: hidden;
+  padding: 50px;
+}
+
+.circle {
+  width: 100px;
+  height: 100px;
+  background-color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  margin: 0 10px;
+}
+
+.circle:hover {
+  transform: scale(1.2);
+}
+
+.circle img,
+.circle-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.title {
+  margin-top: px;
+  margin-left: 14px;
+}
+
+.input {
+  background-color: darkgray;
+  height: 20;
+}
+
+
+/* More specific selector might be needed */
+.transparentModal .ant-modal-content {
+  background: transparent !important;
+  /* Makes the modal content transparent */
+  box-shadow: none !important;
+  /* Removes the shadow for a cleaner look */
+}
+
+.transparentModal .ant-modal-close-x {
+  background-color: white;
+  border-radius: 100%;
+  padding: 7px;
+}
+
+
+.modalButtons .btnCancel {
+  background: #ee4953;
+  border-radius: 8px;
+
+  color: white;
+  width: 161px;
+  height: 44px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.modalButtons .btnConfirm {
+  border: 2px solid #106b30;
+  border-radius: 8px;
+  color: #106b30;
+  background-color: white;
+  width: 161px;
+  height: 44px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.modalButtons .ant-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: center;
+  margin: auto;
+  font-weight: 700;
+  font-size: 18px !important;
+  text-align: center;
+
+}
+
+.modalButtons .ant-modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+  padding: 32px;
+  border-radius: 16px;
+}
+
+.modalButtons.ant-modal {
+  left: 200px;
+}

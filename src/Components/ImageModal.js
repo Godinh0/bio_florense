@@ -1,7 +1,8 @@
 import React from 'react';
 import { Modal } from 'antd';
+import '../App.css'; 
 
-const ImageModal = ({ isVisible, onClose,  imageSrc }) => {
+const ImageModal = ({ isVisible, onClose, imageSrc }) => {
   return (
     <Modal
       visible={isVisible}
@@ -9,6 +10,7 @@ const ImageModal = ({ isVisible, onClose,  imageSrc }) => {
       footer={null}
       centered
       width="80vw"
+      className="transparentModal" // Add this class to apply your custom styles
       bodyStyle={{
         height: '80vh',
         display: 'flex',
