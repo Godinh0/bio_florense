@@ -15,7 +15,7 @@ const ModalButtons = ({
         centered
         open={show}
         onCancel={onCancel ? onCancel : () => {}}
-        closable={onCancel ? true : false}
+        closable={false}
         footer={null}
       >
         {message}

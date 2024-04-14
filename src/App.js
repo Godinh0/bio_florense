@@ -12,6 +12,11 @@ const App = () => {
     setIsOffice(!isOffice); // Toggle between true and false
   };
 
+  const handleReset = () => {
+    localStorage.clear(); // Clear all local storage data
+    window.location.reload(); // Optional: Reload the page to reset the application state
+  };
+
   return (
     <div style={{ position: "relative" }}>
       <Button
@@ -19,11 +24,22 @@ const App = () => {
           position: "absolute",
           top: 0,
           left: 0,
-          zIndex: 1, // Adjust the z-index to ensure it's below other content
+          zIndex: 1, // Adjust the z-index to ensure it's visible
         }}
         onClick={handleClick}
       >
         {isOffice ? "Laboratorio ->" : "Escritorio ->"}
+      </Button>
+      <Button
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 120, // Adjust so it doesn't overlap with the first button
+          zIndex: 1,
+        }}
+        onClick={handleReset}
+      >
+        Reset Local Storage
       </Button>
       <div>{isOffice ? <OfficeScreen /> : <LabScreen />}</div>
     </div>
