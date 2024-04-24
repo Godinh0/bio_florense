@@ -3,7 +3,10 @@ import "./App.css";
 import OfficeScreen from "./Components/OfficeScreen";
 import LabScreen from "./Components/LabScreen";
 import MicroScreen from "./Components/MicroScreen_1";
+import MicroScreen_2 from "./Components/MicroScreen_2";
+import MicroScreen_3 from "./Components/MicroScreen_3";
 import { Button } from "antd";
+import BloodTestScreen from "./Components/BloodTestScreen";
 
 const App = () => {
   const [isOffice, setIsOffice] = useState(true); // Boolean to track the current screen
@@ -41,7 +44,7 @@ const App = () => {
       >
         Reset Local Storage
       </Button>
-      <div>{isOffice ? <OfficeScreen /> : <LabScreen />}</div>
+      <div>{isOffice ? <OfficeScreen /> : <LabScreen/>}</div>
     </div>
   );
 };

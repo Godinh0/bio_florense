@@ -7,14 +7,20 @@ body {
   padding: 0;
 }
 
+
 .container {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   align-items: center;
+  text-align: center;
   position: relative;
   background-color: lightgray;
   overflow: hidden;
   padding: 50px;
+  border-radius: 20px;
+  box-shadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+
 }
 
 .circle {
@@ -22,7 +28,6 @@ body {
   height: 100px;
   background-color: white;
   border-radius: 50%;
-  cursor: pointer;
   transition: transform 0.3s ease-in-out;
   margin: 0 10px;
 }
@@ -39,10 +44,6 @@ body {
   border-radius: 50%;
 }
 
-.title {
-  margin-top: px;
-  margin-left: 14px;
-}
 
 .input {
   background-color: darkgray;

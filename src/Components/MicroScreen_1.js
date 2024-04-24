@@ -6,7 +6,7 @@ import ModalButtons from "./ModalButtons";
 import { useState } from "react";
 import ImageModal from "./ImageModal";
 
-const MicroScreen = () => {
+const MicroScreen_1 = () => {
   const [showLaminas, setShowLaminas] = useState(false);
   const [showFirstDialog, setShowFirstDialog] = useState(true);
   const [showSecondDialog, setShowSecondDialog] = useState(false);
@@ -146,4 +146,4 @@ const MicroScreen = () => {
   );
 };
 
-export default MicroScreen;
+export default MicroScreen_1;

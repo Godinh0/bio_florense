@@ -14,11 +14,17 @@ import map from "../assets/map.svg";
 import Menu from "./Menu";
 import { Popover } from "antd";
 import ImageModal from "./ImageModal";
-import MicroScreen from "./MicroScreen_1";
+import MicroScreen_1 from "./MicroScreen_1";
+import MicroScreen_2 from "./MicroScreen_2";
+import MicroScreen_3 from "./MicroScreen_3";
+import BloodTestScreen from "./BloodTestScreen";
 
 const LabScreen = () => {
   const [showLabScreen, setShowLabScreen] = useState(true);
   const [showMicroScreen1, setShowMicroScreen1] = useState(false);
+  const [showMicroScreen2, setShowMicroScreen2] = useState(false);
+  const [showMicroScreen3, setShowMicroScreen3] = useState(false);
+  const [showBloodTest, setShowBloodTest] = useState(false);
   const [isHoveredLeftBoard, setIsHoveredLeftBoard] = useState(false);
   const [isHoveredMicro, setIsHoveredMicro] = useState(false);
   const [isHoveredRightBoard, setIsHoveredRightBoard] = useState(false);
@@ -35,6 +41,18 @@ const LabScreen = () => {
     setShowMicroScreen1(true);
     setShowLabScreen(false);
   }
+  const handleAmostraAguaClick = () =>{
+    setShowMicroScreen2(true);
+    setShowLabScreen(false);
+  }
+  const handleAmostraOrgaoClick = () =>{
+    setShowMicroScreen3(true);
+    setShowLabScreen(false);
+  }
+  const handleBloodTestClick = () =>{
+    setShowBloodTest(true);
+    setShowLabScreen(false);
+  }
   const menuOptionsMicro = [
     {
         title: "Faca e Caco de Vidro",
@@ -46,11 +64,11 @@ const LabScreen = () => {
     },
     {
         title: "Amostra de água",
-        onClick: () => {},
+        onClick: handleAmostraAguaClick,
     },
     {
         title: "Amostra de orgãos",
-        onClick: () => {},
+        onClick: handleAmostraOrgaoClick,
     },
   ];
   const menuOptionsResults= [
@@ -117,6 +135,7 @@ const LabScreen = () => {
             <div
               onMouseEnter={() => setIsHoveredLeftBoard(true)}
               onMouseLeave={() => setIsHoveredLeftBoard(false)}
+              onClick={handleBloodTestClick}
             >
               {generatePopoverContent(left_shelf, "Left Board", isHoveredLeftBoard)}
             </div>
@@ -187,7 +206,10 @@ const LabScreen = () => {
         />
       </div>
     }
-    {showMicroScreen1&&<MicroScreen/>}
+    {showMicroScreen1&&<MicroScreen_1/>}
+    {showMicroScreen2&&<MicroScreen_2/>}
+    {showMicroScreen3&&<MicroScreen_3/>}
+    {showBloodTest&&<BloodTestScreen/>}
    </>
   );
 };

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import "./App.css";
+import "../App.css";
 import circle1 from "../assets/circle1.png";
 import circle2 from "../assets/circle2.png";
 import circle3 from "../assets/circle3.png";
 
-const BloodTest = () => {
+const BloodTest = (props) => {
   const [bloodType, setBloodType] = useState("");
   const [circle1Img, setCircle1Img] = useState(false);
   const [circle2Img, setCircle2Img] = useState(false);
@@ -16,10 +16,10 @@ const BloodTest = () => {
 
     const circleId = event.target.id;
 
-    if (circleId == "circle1") setCircle1Img(true);
-    if (circleId == "circle2") setCircle2Img(true);
-    if (circleId == "circle3") setCircle3Img(true);
-  };
+    if (circleId == "circle1"){ setCircle1Img(true);props.setCircle1Clicked(true)}
+    if (circleId == "circle2") {setCircle2Img(true);props.setCircle2Clicked(true)}
+    if (circleId == "circle3"){ setCircle3Img(true);props.setCircle3Clicked(true)
+  };}
 
   const handleInputChange = (event) => {
     const inputValue = event.target.value.toUpperCase();
