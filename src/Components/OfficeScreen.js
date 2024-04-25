@@ -24,7 +24,7 @@ import { Popover } from "antd";
 import ImageModal from "./ImageModal";
 import PrintsScreen from "./PrintsScreen";
 
-const OfficeScreen = () => {
+const OfficeScreen = ({setMicroScreen, setIsOffice}) => {
   const [isHoveredLeftBoard, setIsHoveredLeftBoard] = useState(false);
   const [isHoveredEvidences, setIsHoveredEvidences] = useState(false);
   const [isHoveredRightBoard, setIsHoveredRightBoard] = useState(false);
@@ -76,19 +76,19 @@ const OfficeScreen = () => {
     },
     {
       title: "Faca e Caco de Vidro",
-      onClick: () => {},
+      onClick: () => {setIsOffice(false);setMicroScreen("microScreen_1")},
     },
     {
       title: "Fios de Cabelos e Pelos",
-      onClick: () => {},
+      onClick: () => {setIsOffice(false);setMicroScreen("microScreen_4")},
     },
     {
       title: "Amostra de água",
-      onClick: () => {},
+      onClick: () => {setIsOffice(false);setMicroScreen("microScreen_2")},
     },
     {
       title: "Amostra de orgãos",
-      onClick: () => {},
+      onClick: () => {setIsOffice(false);setMicroScreen("microScreen_3")},
     },
   ];
   const menuOptionsRighBoard = [

@@ -2,22 +2,20 @@ import React, { useState } from "react";
 import "./App.css";
 import OfficeScreen from "./Components/OfficeScreen";
 import LabScreen from "./Components/LabScreen";
-import MicroScreen from "./Components/MicroScreen_1";
-import MicroScreen_2 from "./Components/MicroScreen_2";
-import MicroScreen_3 from "./Components/MicroScreen_3";
 import { Button } from "antd";
-import BloodTestScreen from "./Components/BloodTestScreen";
+
 
 const App = () => {
-  const [isOffice, setIsOffice] = useState(true); // Boolean to track the current screen
+  const [isOffice, setIsOffice] = useState(true);
+  const [microScreen, setMicroScreen] = useState("");
 
   const handleClick = () => {
-    setIsOffice(!isOffice); // Toggle between true and false
+    setIsOffice(!isOffice); 
   };
 
   const handleReset = () => {
-    localStorage.clear(); // Clear all local storage data
-    window.location.reload(); // Optional: Reload the page to reset the application state
+    localStorage.clear();
+    window.location.reload(); 
   };
 
   return (
@@ -27,7 +25,7 @@ const App = () => {
           position: "absolute",
           top: 0,
           left: 0,
-          zIndex: 1, // Adjust the z-index to ensure it's visible
+          zIndex: 1, 
         }}
         onClick={handleClick}
       >
@@ -37,14 +35,14 @@ const App = () => {
         style={{
           position: "absolute",
           top: 0,
-          left: 120, // Adjust so it doesn't overlap with the first button
+          left: 120,
           zIndex: 1,
         }}
         onClick={handleReset}
       >
         Reset Local Storage
       </Button>
-      <div>{isOffice ? <OfficeScreen /> : <LabScreen/>}</div>
+      <div>{isOffice ? <OfficeScreen setIsOffice={setIsOffice} setMicroScreen={setMicroScreen} /> : <LabScreen microScreen={microScreen} setMicroScreen={setMicroScreen}/>}</div>
     </div>
   );
 };

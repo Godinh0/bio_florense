@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import lab_background from "../assets/lab_background.png";
 import left_shelf from "../assets/left_shelf.svg";
 import micro from "../assets/micro.svg";
@@ -18,12 +18,14 @@ import MicroScreen_1 from "./MicroScreen_1";
 import MicroScreen_2 from "./MicroScreen_2";
 import MicroScreen_3 from "./MicroScreen_3";
 import BloodTestScreen from "./BloodTestScreen";
+import MicroScreen_4 from "./MicroScreen_4";
 
-const LabScreen = () => {
+const LabScreen = ({microScreen, setMicroScreen}) => {
   const [showLabScreen, setShowLabScreen] = useState(true);
   const [showMicroScreen1, setShowMicroScreen1] = useState(false);
   const [showMicroScreen2, setShowMicroScreen2] = useState(false);
   const [showMicroScreen3, setShowMicroScreen3] = useState(false);
+  const [showMicroScreen4, setShowMicroScreen4] = useState(false);
   const [showBloodTest, setShowBloodTest] = useState(false);
   const [isHoveredLeftBoard, setIsHoveredLeftBoard] = useState(false);
   const [isHoveredMicro, setIsHoveredMicro] = useState(false);
@@ -37,21 +39,43 @@ const LabScreen = () => {
   const [isChiaraDepoVisible, setIsChiaraDepoVisible] = useState(false);
   const [isMarietaDepoVisible, setIsMarietaDepoVisible] = useState(false);
 
+  useEffect(() => {
+    if(microScreen.length!==0){
+        if(microScreen==="microScreen_1"){
+          handleFacaCacoClick()}
+        if(microScreen==="microScreen_2"){
+          handleAmostraAguaClick()}
+        if(microScreen==="microScreen_3"){
+          handleAmostraOrgaoClick()}
+        if(microScreen==="microScreen_4"){
+          handleFiosClick()}
+    }
+  }, [microScreen]);
+
   const handleFacaCacoClick = () =>{
     setShowMicroScreen1(true);
     setShowLabScreen(false);
+    setMicroScreen("");
   }
   const handleAmostraAguaClick = () =>{
     setShowMicroScreen2(true);
     setShowLabScreen(false);
+    setMicroScreen("");
   }
   const handleAmostraOrgaoClick = () =>{
     setShowMicroScreen3(true);
     setShowLabScreen(false);
+    setMicroScreen("");
+  }
+  const handleFiosClick = () =>{
+    setShowMicroScreen4(true);
+    setShowLabScreen(false);
+    setMicroScreen("");
   }
   const handleBloodTestClick = () =>{
     setShowBloodTest(true);
     setShowLabScreen(false);
+    setMicroScreen("");
   }
   const menuOptionsMicro = [
     {
@@ -60,7 +84,7 @@ const LabScreen = () => {
     },
     {
         title: "Fios de Cabelos e Pelos",
-        onClick: () => {},
+        onClick: handleFiosClick,
     },
     {
         title: "Amostra de água",
@@ -209,6 +233,7 @@ const LabScreen = () => {
     {showMicroScreen1&&<MicroScreen_1/>}
     {showMicroScreen2&&<MicroScreen_2/>}
     {showMicroScreen3&&<MicroScreen_3/>}
+    {showMicroScreen4&&<MicroScreen_4/>}
     {showBloodTest&&<BloodTestScreen/>}
    </>
   );
