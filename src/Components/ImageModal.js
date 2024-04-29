@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal } from 'antd';
 import '../App.css'; 
 
-const ImageModal = ({ isVisible, onClose, imageSrc }) => {
+const ImageModal = ({ isVisible, onClose, imageSrc, oversized }) => {
   return (
     <Modal
       visible={isVisible}
@@ -18,7 +18,7 @@ const ImageModal = ({ isVisible, onClose, imageSrc }) => {
         alignItems: 'center',
       }}
     >
-      <img src={imageSrc} style={{ maxHeight: '100%', maxWidth: '100%' }} />
+      <img src={imageSrc} style={{ maxHeight:oversized?"100vh": '100%', maxWidth: oversized?"100vw": '100%' }} />
     </Modal>
   );
 };

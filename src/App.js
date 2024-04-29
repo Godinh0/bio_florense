@@ -8,6 +8,7 @@ import { Button } from "antd";
 const App = () => {
   const [isOffice, setIsOffice] = useState(true);
   const [microScreen, setMicroScreen] = useState("");
+  const [dnaScreen, setDnaScreen] = useState(false);
 
   const handleClick = () => {
     setIsOffice(!isOffice); 
@@ -42,7 +43,7 @@ const App = () => {
       >
         Reset Local Storage
       </Button>
-      <div>{isOffice ? <OfficeScreen setIsOffice={setIsOffice} setMicroScreen={setMicroScreen} /> : <LabScreen microScreen={microScreen} setMicroScreen={setMicroScreen}/>}</div>
+      <div>{isOffice ? <OfficeScreen dnaScreen={dnaScreen} setDnaScreen={setDnaScreen} setIsOffice={setIsOffice} setMicroScreen={setMicroScreen} /> : <LabScreen setDnaScreen={setDnaScreen} setIsOffice={setIsOffice} microScreen={microScreen} setMicroScreen={setMicroScreen}/>}</div>
     </div>
   );
 };

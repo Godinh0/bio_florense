@@ -17,14 +17,15 @@ import GeremiasDepo from "../assets/geremias_depo.svg";
 import GregorioDepo from "../assets/gregorio_depo.svg";
 import AndreyDepo from "../assets/andrey_depo.svg";
 import ChiaraDepo from "../assets/chiara_depo.svg";
-import MarietaDepo from "../assets/marieta_depo.svg";
+import MarietaDepo from "../assets/marieta_depo.png";
 import map from "../assets/map.svg";
 import Menu from "./Menu";
 import { Popover } from "antd";
 import ImageModal from "./ImageModal";
 import PrintsScreen from "./PrintsScreen";
+import DNAScreen from "./DNAScreen";
 
-const OfficeScreen = ({setMicroScreen, setIsOffice}) => {
+const OfficeScreen = ({setDnaScreen, dnaScreen, setMicroScreen, setIsOffice}) => {
   const [isHoveredLeftBoard, setIsHoveredLeftBoard] = useState(false);
   const [isHoveredEvidences, setIsHoveredEvidences] = useState(false);
   const [isHoveredRightBoard, setIsHoveredRightBoard] = useState(false);
@@ -52,12 +53,21 @@ const OfficeScreen = ({setMicroScreen, setIsOffice}) => {
     setShowOfficeScreen(!showOfficeScreen);
     setShowPrintsScreen(!showPrintsScreen);
   };
+  const handleDNA = () => {
+    setShowOfficeScreen(!showOfficeScreen);
+    setDnaScreen(!dnaScreen);
+  };
+  useEffect(() => {
+    if (dnaScreen===true) {
+      setShowOfficeScreen(!showOfficeScreen);
+    }
+  }, [dnaScreen]);
   useEffect(() => {
     if (showPrintsScreen && !localStorageSet) {
       localStorage.setItem("firstTimePrints", "yes");
       setLocalStorageSet(true);
     }
-  }, [showPrintsScreen]);
+  }, [localStorageSet, showPrintsScreen]);
 
   const menuOptionsLeftBoard = [
     {
@@ -71,23 +81,23 @@ const OfficeScreen = ({setMicroScreen, setIsOffice}) => {
   ];
   const menuOptionsEvidences = [
     {
-      title: "Digitais",
+      title: "Digitais (análise no escritório)",
       onClick: handlePrints,
     },
     {
-      title: "Faca e Caco de Vidro",
+      title: "Faca e Caco de Vidro (análise no laboratório)",
       onClick: () => {setIsOffice(false);setMicroScreen("microScreen_1")},
     },
     {
-      title: "Fios de Cabelos e Pelos",
+      title: "Fios de Cabelos e Pelos (análise no laboratório)",
       onClick: () => {setIsOffice(false);setMicroScreen("microScreen_4")},
     },
     {
-      title: "Amostra de água",
+      title: "Amostra de água (análise no laboratório)",
       onClick: () => {setIsOffice(false);setMicroScreen("microScreen_2")},
     },
     {
-      title: "Amostra de orgãos",
+      title: "Amostra de orgãos (análise no laboratório)",
       onClick: () => {setIsOffice(false);setMicroScreen("microScreen_3")},
     },
   ];
@@ -365,6 +375,7 @@ const OfficeScreen = ({setMicroScreen, setIsOffice}) => {
         </>
       )}
       {showPrintsScreen && <PrintsScreen handlePrints={handlePrints} />}
+      {dnaScreen && <DNAScreen handleDNA={handleDNA} />}
     </>
   );
 };

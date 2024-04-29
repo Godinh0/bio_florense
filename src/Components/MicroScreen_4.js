@@ -172,7 +172,7 @@ const MicroScreen_4 = () => {
         message={<p>Para isso, vamos analisar no microscópio óptico os fios encontrados no: 
             Moletom da vítima,      
             na varanda do chalé e
-            na calça da vítima, após comparar com as imagens disponíveis em <a target="_blank" href="http://www.microlabgallery.com/hair.aspx">http://www.microlabgallery.com/hair.aspx</a>.</p>}
+            na calça da vítima, após comparar com as imagens disponíveis em <a target="_blank" rel="noreferrer" href="http://www.microlabgallery.com/hair.aspx">http://www.microlabgallery.com/hair.aspx</a>.</p>}
         onCancel={() => {
           setShowFirstDialog(true);
           setShowSecondDialog(false);
