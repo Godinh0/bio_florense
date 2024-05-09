@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import OfficeScreen from "./Components/OfficeScreen";
 import LabScreen from "./Components/LabScreen";
@@ -9,6 +9,7 @@ const App = () => {
   const [isOffice, setIsOffice] = useState(true);
   const [microScreen, setMicroScreen] = useState("");
   const [dnaScreen, setDnaScreen] = useState(false);
+  const [currentStage, setCurrentStage] = useState(localStorage.getItem("currentStage") || 0);
 
   const handleClick = () => {
     setIsOffice(!isOffice); 
@@ -18,7 +19,11 @@ const App = () => {
     localStorage.clear();
     window.location.reload(); 
   };
-
+  
+  useEffect(() => {
+    localStorage.setItem("currentStage", currentStage);
+    console.log(localStorage.getItem("currentStage"))
+  }, [currentStage]);
   return (
     <div style={{ position: "relative" }}>
       <Button
@@ -43,7 +48,7 @@ const App = () => {
       >
         Reset Local Storage
       </Button>
-      <div>{isOffice ? <OfficeScreen dnaScreen={dnaScreen} setDnaScreen={setDnaScreen} setIsOffice={setIsOffice} setMicroScreen={setMicroScreen} /> : <LabScreen setDnaScreen={setDnaScreen} setIsOffice={setIsOffice} microScreen={microScreen} setMicroScreen={setMicroScreen}/>}</div>
+      <div>{isOffice ? <OfficeScreen currentStage={currentStage} setCurrentStage={setCurrentStage} dnaScreen={dnaScreen} setDnaScreen={setDnaScreen} setIsOffice={setIsOffice} setMicroScreen={setMicroScreen} /> : <LabScreen currentStage={currentStage} setCurrentStage={setCurrentStage} setDnaScreen={setDnaScreen} setIsOffice={setIsOffice} microScreen={microScreen} setMicroScreen={setMicroScreen}/>}</div>
     </div>
   );
 };

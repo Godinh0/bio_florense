@@ -1,14 +1,13 @@
 import { Button, Modal } from "antd";
 
-const ModalButtons = ({
-  textCancel,
+const ModalQuestion = ({
   textConfirm,
   message,
   onCancel,
-  onBack,
+  correctAnswer,
   onConfirm,
   show,
-  closable
+  children,
 }) => {
   return (
     <>
@@ -17,23 +16,23 @@ const ModalButtons = ({
         centered
         open={show}
         onCancel={onCancel ? onCancel : () => {}}
-        closable={closable?true:false}
         footer={null}
-        maskClosable={false}
       >
         {message}
+        {children}
         <div style={{ display: "flex", justifyContent: "center", gap: 32 }}>
-          {textCancel && (
-            <Button key="1" className="btnCancel" onClick={onBack}>
-              {textCancel}
-            </Button>
-          )}
-
           <Button
             key="2"
             className="btnConfirm"
+            style={{
+              color: correctAnswer ? "" : "#B8B3B3",
+              borderColor: correctAnswer ? "" : "#B8B3B3",
+              cursor: correctAnswer ? "normal" : "pointer",
+              backgroundColor:correctAnswer?"":"white"
+            }}
             type="primary"
             onClick={onConfirm}
+            disabled={!correctAnswer}
           >
             {textConfirm}
           </Button>
@@ -42,4 +41,4 @@ const ModalButtons = ({
     </>
   );
 };
-export default ModalButtons;
+export default ModalQuestion;

@@ -4,10 +4,13 @@ import image1 from "../assets/image1_micro3.svg";
 import image2 from "../assets/image2_micro3.svg";
 import image3 from "../assets/image3_micro3.svg";
 import ModalButtons from "./ModalButtons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ImageModal from "./ImageModal";
+import ModalQuestion from "./ModalQuestion";
+import { Button, Select } from "antd";
+import { Option } from "antd/es/mentions";
 
-const MicroScreen_3 = () => {
+const MicroScreen_3 = ({setShowMicroScreen, handleMicro3Finish}) => {
   const [showLaminas, setShowLaminas] = useState(false);
   const [showFirstDialog, setShowFirstDialog] = useState(true);
   const [showSecondDialog, setShowSecondDialog] = useState(false);
@@ -17,6 +20,77 @@ const MicroScreen_3 = () => {
   const [showImage1, setShowImage1] = useState(false);
   const [showImage2, setShowImage2] = useState(false);
   const [showImage3, setShowImage3] = useState(false);
+  const [showQuestion, setShowQuestion] = useState(false);
+  const [validationMessage_A, setValidationMessage_A] = useState(
+    localStorage.getItem("validationMicro3Message_A") || null
+  );
+  const [validationMessage_B, setValidationMessage_B] = useState(
+    localStorage.getItem("validationMicro3Message_B") || null
+  );
+  const [validationMessage_C, setValidationMessage_C] = useState(
+    localStorage.getItem("validationMicro3Message_C") || null
+  );
+  const [answer_A, setAnswer_A] = useState(
+    localStorage.getItem("AnswerMicro3_A") || null
+  );
+  const [answer_B, setAnswer_B] = useState(
+    localStorage.getItem("AnswerMicro3_B") || null
+  );
+  const [answer_C, setAnswer_C] = useState(
+    localStorage.getItem("AnswerMicro3_C") || null
+  );
+  const [correctAnswer, setCorrectAnswer] = useState(false);
+
+  const options = [
+    { name: "Fígado" },
+    { name: "Cérebro" },
+    { name: "Coração" },
+  ];
+
+  const setValidationAndStore = (key, value) => {
+    localStorage.setItem(key, value);
+    switch (key) {
+      case "validationMicro3Message_A":
+        setValidationMessage_A(value);
+        break;
+      case "validationMicro3Message_B":
+        setValidationMessage_B(value);
+        break;
+        case "validationMicro3Message_C":
+        setValidationMessage_C(value);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const onChange_A = (value) => {
+    const msg = value === "Coração" ? "Correto" : "Incorreto";
+    setValidationAndStore("validationMicro3Message_A", msg);
+    setAnswer_A(value);
+    localStorage.setItem("AnswerMicro3_A", value);
+  };
+
+  const onChange_B = (value) => {
+    const msg = value === "Fígado" ? "Correto" : "Incorreto";
+    setValidationAndStore("validationMicro3Message_B", msg);
+    setAnswer_B(value);
+    localStorage.setItem("AnswerMicro3_B", value);
+  };
+  const onChange_C = (value) => {
+    const msg = value === "Cérebro" ? "Correto" : "Incorreto";
+    setValidationAndStore("validationMicro3Message_C", msg);
+    setAnswer_C(value);
+    localStorage.setItem("AnswerMicro3_C", value);
+  };
+
+  useEffect(() => {
+    if (validationMessage_A === "Correto" && validationMessage_B === "Correto" && validationMessage_C === "Correto") {
+      setCorrectAnswer(true);
+    } else {
+      setCorrectAnswer(false);
+    }
+  }, [validationMessage_A, validationMessage_B, validationMessage_C]);
 
   return (
     <>
@@ -63,7 +137,7 @@ const MicroScreen_3 = () => {
                 width: "30%",
                 padding: "20px",
                 position: "absolute",
-                top: "30%",
+                top: "25%",
                 left: "50%",
                 backgroundColor: "#808080",
                 textAlign: "center",
@@ -95,7 +169,7 @@ const MicroScreen_3 = () => {
                 width: "30%",
                 padding: "20px",
                 position: "absolute",
-                top: "50%",
+                top: "45%",
                 left: "50%",
                 backgroundColor: "#808080",
                 textAlign: "center",
@@ -127,7 +201,7 @@ const MicroScreen_3 = () => {
                 width: "30%",
                 padding: "20px",
                 position: "absolute",
-                top: "70%",
+                top: "65%",
                 left: "50%",
                 backgroundColor: "#808080",
                 textAlign: "center",
@@ -150,9 +224,150 @@ const MicroScreen_3 = () => {
               </div>
               <div style={{ color: "white" }}>ÓRGÃO 3</div>
             </div>
+            <div
+              style={{
+                position: "absolute",
+                top: "80%",
+                left: "30%",
+                width: "70vw",
+                zIndex: 1,
+                display: "flex",
+                flexDirection: "column",
+                gap: 6,
+                alignItems: "end",
+              }}
+            >
+              <div
+                style={{
+                  width: "80%",
+                  marginRight: "8%",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  gap: 20,
+                }}
+              >
+                <Button
+                  onClick={() => setShowQuestion(true)}
+                  style={{ width: "30%", minHeight: 40 }}
+                >
+                  VERIFICAÇÃO FINAL
+                </Button>
+                <Button
+                  onClick={() => setShowMicroScreen(false)}
+                  style={{ width: "30%", minHeight: 40 }}
+                >
+                  VOLTAR
+                </Button>
+              </div>
+            </div>
           </>
         )}
       </div>
+      <ModalQuestion
+        textConfirm="Ir para o Laboratório"
+        message="Pergunta?"
+        onConfirm={() => handleMicro3Finish()}
+        show={showQuestion}
+        onCancel={() => setShowQuestion(false)}
+        correctAnswer={correctAnswer}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "left",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 20,
+            }}
+          >
+            <p>A) Órgão 1</p>
+            <Select
+              value={answer_A}
+              style={{ minWidth: "30%" }}
+              onChange={onChange_A}
+              placeholder="Selecione"
+            >
+              {options.map((option) => (
+                <Option key={option.name} value={option.name}>
+                  {option.name}
+                </Option>
+              ))}
+            </Select>
+            <p
+              style={{
+                color: validationMessage_A === "Correto" ? "green" : "red",
+              }}
+            >
+              {validationMessage_A}
+            </p>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 20,
+            }}
+          >
+            <p>B) Órgão 2</p>
+            <Select
+              value={answer_B}
+              style={{ minWidth: "30%" }}
+              onChange={onChange_B}
+              placeholder="Selecione"
+            >
+              {options.map((option) => (
+                <Option key={option.name} value={option.name}>
+                  {option.name}
+                </Option>
+              ))}
+            </Select>
+            <p
+              style={{
+                color: validationMessage_B === "Correto" ? "green" : "red",
+              }}
+            >
+              {validationMessage_B}
+            </p>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 20,
+            }}
+          >
+            <p>C) Órgão 3</p>
+            <Select
+              value={answer_C}
+              style={{ minWidth: "30%" }}
+              onChange={onChange_C}
+              placeholder="Selecione"
+            >
+              {options.map((option) => (
+                <Option key={option.name} value={option.name}>
+                  {option.name}
+                </Option>
+              ))}
+            </Select>
+            <p
+              style={{
+                color: validationMessage_C === "Correto" ? "green" : "red",
+              }}
+            >
+              {validationMessage_C}
+            </p>
+          </div>
+        </div>
+      </ModalQuestion>
       <ModalButtons
         textCancel=""
         textConfirm="Próximo"
@@ -165,6 +380,10 @@ const MicroScreen_3 = () => {
           setShowFirstDialog(false);
           setShowSecondDialog(true);
         }}
+        onCancel={()=>{
+          setShowMicroScreen(false)
+        }}
+        closable
         show={showFirstDialog}
       />
       <ModalButtons
@@ -176,7 +395,7 @@ const MicroScreen_3 = () => {
         cardíaco, o qual se caracteriza por apresentar células musculares. Já o cérebro é um órgão 
         que compõe o sistema nervoso central, logo, possui um tecido nervoso com células neuronais 
         capazes de conduzir os impulsos nervosos."
-        onCancel={() => {
+        onBack={() => {
           setShowFirstDialog(true);
           setShowSecondDialog(false);
         }}
@@ -184,6 +403,10 @@ const MicroScreen_3 = () => {
           setShowSecondDialog(false);
           setShowLaminas(true);
         }}
+        onCancel={()=>{
+          setShowMicroScreen(false)
+        }}
+        closable
         show={showSecondDialog}
       />
       <ImageModal

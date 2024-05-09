@@ -82,7 +82,17 @@ body {
   border-radius: 8px;
   color: #106b30;
   background-color: white;
-  width: 161px;
+  width: 40%;
+  height: 44px;
+  font-weight: 700;
+  font-size: 14px;
+}
+.btnConfirmLab{
+  border: 2px solid #106b30;
+  border-radius: 8px;
+  color: #106b30;
+  background-color: white;
+  width: 80%;
   height: 44px;
   font-weight: 700;
   font-size: 14px;
@@ -93,7 +103,6 @@ body {
   flex-direction: column;
   gap: 24px;
   justify-content: center;
-  margin: auto;
   font-weight: 700;
   font-size: 18px !important;
   text-align: center;
@@ -111,4 +120,13 @@ body {
 
 .modalButtons.ant-modal {
   left: 200px;
+}
+
+@keyframes blink {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
 }

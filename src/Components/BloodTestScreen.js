@@ -8,14 +8,21 @@ import { useEffect, useState } from "react";
 import ImageModal from "./ImageModal";
 import BloodTest from "./BloodTest";
 import "../App.css";
+import { Button } from "antd";
 
-const BloodTestScreen = () => {
+const BloodTestScreen = ({ setShowBloodTestScreen }) => {
+  const [bloodType, setBloodType] = useState(
+    localStorage.getItem("bloodType") || null
+  );
   const [showCustomCursor, setShowCustomCursor] = useState(false);
   const [showBloodTest, setShowBloodTest] = useState(false);
   const [showFirstDialog, setShowFirstDialog] = useState(true);
   const [showSecondDialog, setShowSecondDialog] = useState(false);
   const [showImage1, setShowImage1] = useState(false);
   const [showImage2, setShowImage2] = useState(false);
+  const [validationMessage, setValidationMessage] = useState(
+    localStorage.getItem("validationBloodMessage") || null
+  );
   const [circle1Clicked, setCircle1Clicked] = useState(false);
   const [circle2Clicked, setCircle2Clicked] = useState(false);
   const [circle3Clicked, setCircle3Clicked] = useState(false);
@@ -29,6 +36,9 @@ const BloodTestScreen = () => {
   useEffect(() => {
     setShowCustomCursor(showBloodTest);
   }, [showBloodTest]);
+  useEffect(() => {
+    localStorage.setItem("validationBloodMessage",validationMessage)
+  }, [validationMessage]);
 
   return (
     <>
@@ -39,7 +49,9 @@ const BloodTestScreen = () => {
           height: "100vh",
           margin: 0,
           padding: 0,
-          cursor: showCustomCursor ? `url(${cursor_image})0 80, pointer` : 'default',
+          cursor: showCustomCursor
+            ? `url(${cursor_image})0 80, pointer`
+            : "default",
         }}
       >
         <img
@@ -64,13 +76,52 @@ const BloodTestScreen = () => {
           }}
         >
           {showBloodTest && (
-              <BloodTest
-                setCircle1Clicked={setCircle1Clicked}
-                setCircle2Clicked={setCircle2Clicked}
-                setCircle3Clicked={setCircle3Clicked}
-              />
+            <BloodTest
+              bloodType={bloodType}
+              setBloodType={setBloodType}
+              validationMessage={validationMessage}
+              setValidationMessage={setValidationMessage}
+              setCircle1Clicked={setCircle1Clicked}
+              setCircle2Clicked={setCircle2Clicked}
+              setCircle3Clicked={setCircle3Clicked}
+            />
           )}
         </div>
+        {showBloodTest && (
+          <div
+            style={{
+              position: "absolute",
+              top: "80%",
+              left: "17%",
+              width: "70vw",
+              zIndex: 1,
+              display: "flex",
+              flexDirection: "column",
+              gap: 6,
+              alignItems: "end",
+            }}
+          >
+            <div
+              style={{
+                width: "80%",
+                marginRight: "8%",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                gap: 20,
+              }}
+            >
+              <Button
+                onClick={() => setShowBloodTestScreen(false)}
+                style={{ width: "30%", minHeight: 40 }}
+                className="btnConfirmLab"
+                disabled={validationMessage === "Correto" ? false : true}
+              >
+                Ir para o Laboratório
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
       <ModalButtons
         textCancel=""
@@ -92,6 +143,10 @@ const BloodTestScreen = () => {
           setShowSecondDialog(true);
         }}
         show={showFirstDialog}
+        closable
+        onCancel={() => {
+          setShowBloodTestScreen(false);
+        }}
       />
       <ModalButtons
         textCancel="Voltar"
@@ -110,15 +165,19 @@ const BloodTestScreen = () => {
             que a pessoa é do tipo O e fator RH negativo.
           </p>
         }
-        onCancel={() => {
+        onBack={() => {
           setShowFirstDialog(true);
           setShowSecondDialog(false);
+        }}
+        onCancel={() => {
+          setShowBloodTestScreen(false);
         }}
         onConfirm={() => {
           setShowSecondDialog(false);
           setShowBloodTest(true);
         }}
         show={showSecondDialog}
+        closable
       />
       <ImageModal
         isVisible={showImage1}
@@ -135,4 +194,3 @@ const BloodTestScreen = () => {
 };
 
 export default BloodTestScreen;
-

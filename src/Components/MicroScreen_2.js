@@ -3,10 +3,13 @@ import micro from "../assets/micro.svg";
 import image1 from "../assets/image1_micro2.svg";
 import image2 from "../assets/image2_micro2.svg";
 import ModalButtons from "./ModalButtons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ImageModal from "./ImageModal";
+import { Button, Select } from "antd";
+import ModalQuestion from "./ModalQuestion";
+import { Option } from "antd/es/mentions";
 
-const MicroScreen_2 = () => {
+const MicroScreen_2 = ({setShowMicroScreen, handleMicro2Finish}) => {
   const [showLaminas, setShowLaminas] = useState(false);
   const [showFirstDialog, setShowFirstDialog] = useState(true);
   const [showSecondDialog, setShowSecondDialog] = useState(false);
@@ -14,6 +17,62 @@ const MicroScreen_2 = () => {
   const [hoveredLamina2, setHoveredLamina2] = useState(false);
   const [showImage1, setShowImage1] = useState(false);
   const [showImage2, setShowImage2] = useState(false);
+  const [showQuestion, setShowQuestion] = useState(false);
+  const [validationMessage_A, setValidationMessage_A] = useState(
+    localStorage.getItem("validationMicro2Message_A") || null
+  );
+  const [validationMessage_B, setValidationMessage_B] = useState(
+    localStorage.getItem("validationMicro2Message_B") || null
+  );
+  const [answer_A, setAnswer_A] = useState(
+    localStorage.getItem("AnswerMicro2_A") || null
+  );
+  const [answer_B, setAnswer_B] = useState(
+    localStorage.getItem("AnswerMicro2_B") || null
+  );
+  const [correctAnswer, setCorrectAnswer] = useState(false);
+
+  const options = [
+    { name: "Protozoário" },
+    { name: "Vírus" }
+  ];
+
+  const setValidationAndStore = (key, value) => {
+    localStorage.setItem(key, value);
+    switch (key) {
+      case "validationMicro2Message_A":
+        setValidationMessage_A(value);
+        break;
+      case "validationMicro2Message_B":
+        setValidationMessage_B(value);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const onChange_A = (value) => {
+    const msg = value === "Protozoário" ? "Correto" : "Incorreto";
+    setValidationAndStore("validationMicro2Message_A", msg);
+    setAnswer_A(value);
+    localStorage.setItem("AnswerMicro2_A", value);
+  };
+
+  const onChange_B = (value) => {
+    const msg = value === "Vírus" ? "Correto" : "Incorreto";
+    setValidationAndStore("validationMicro2Message_B", msg);
+    setAnswer_B(value);
+    localStorage.setItem("AnswerMicro2_B", value);
+  };
+
+  useEffect(() => {
+    if (validationMessage_A === "Correto" && validationMessage_B === "Correto") {
+      setCorrectAnswer(true);
+    } else {
+      setCorrectAnswer(false);
+    }
+  }, [validationMessage_A, validationMessage_B]);
+
 
   return (
     <>
@@ -115,9 +174,121 @@ const MicroScreen_2 = () => {
               </div>
               <div style={{ color: "white" }}>AMOSTRA DO POÇO ARTESIANO</div>
             </div>
+            <div
+              style={{
+                position: "absolute",
+                top: "80%",
+                left: "30%",
+                width: "70vw",
+                zIndex: 1,
+                display: "flex",
+                flexDirection: "column",
+                gap: 6,
+                alignItems: "end",
+              }}
+            >
+              <div
+                style={{
+                  width: "80%",
+                  marginRight: "8%",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  gap: 20,
+                }}
+              >
+                <Button
+                  onClick={() => setShowQuestion(true)}
+                  style={{ width: "30%", minHeight: 40 }}
+                >
+                  VERIFICAÇÃO FINAL
+                </Button>
+                <Button
+                  onClick={() => setShowMicroScreen(false)}
+                  style={{ width: "30%", minHeight: 40 }}
+                >
+                  VOLTAR
+                </Button>
+              </div>
+            </div>
           </>
         )}
       </div>
+      <ModalQuestion
+        textConfirm="Ir para o Laboratório"
+        message="Pergunta?"
+        onConfirm={() => handleMicro2Finish()}
+        show={showQuestion}
+        onCancel={() => setShowQuestion(false)}
+        correctAnswer={correctAnswer}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "left",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 20,
+            }}
+          >
+            <p>A) RIO MANSO</p>
+            <Select
+              value={answer_A}
+              style={{ minWidth: "30%" }}
+              onChange={onChange_A}
+              placeholder="Selecione"
+            >
+              {options.map((option) => (
+                <Option key={option.name} value={option.name}>
+                  {option.name}
+                </Option>
+              ))}
+            </Select>
+            <p
+              style={{
+                color: validationMessage_A === "Correto" ? "green" : "red",
+              }}
+            >
+              {validationMessage_A}
+            </p>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 20,
+            }}
+          >
+            <p>B) POÇO ARTESIANO</p>
+            <Select
+              value={answer_B}
+              style={{ minWidth: "30%" }}
+              onChange={onChange_B}
+              placeholder="Selecione"
+            >
+              {options.map((option) => (
+                <Option key={option.name} value={option.name}>
+                  {option.name}
+                </Option>
+              ))}
+            </Select>
+            <p
+              style={{
+                color: validationMessage_B === "Correto" ? "green" : "red",
+              }}
+            >
+              {validationMessage_B}
+            </p>
+          </div>
+        </div>
+      </ModalQuestion>
       <ModalButtons
         textCancel=""
         textConfirm="Próximo"
@@ -131,6 +302,10 @@ const MicroScreen_2 = () => {
           setShowSecondDialog(true);
         }}
         show={showFirstDialog}
+        onCancel={()=>{
+          setShowMicroScreen(false)
+        }}
+        closable
       />
       <ModalButtons
         textCancel="Voltar"
@@ -139,15 +314,19 @@ const MicroScreen_2 = () => {
         eletrônico a amostra coletada no poço artessiano, em seguida, comparar o que é possível observar 
         no microscópio com a informações presentes no laudo fornecido da análise microbiológica da água e 
         obtermos uma conclusão. "
-        onCancel={() => {
+        onBack={() => {
           setShowFirstDialog(true);
           setShowSecondDialog(false);
+        }}
+        onCancel={()=>{
+          setShowMicroScreen(false)
         }}
         onConfirm={() => {
           setShowSecondDialog(false);
           setShowLaminas(true);
         }}
         show={showSecondDialog}
+        closable
       />
       <ImageModal
         isVisible={showImage1}

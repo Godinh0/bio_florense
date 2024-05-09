@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import lab_background from "../assets/lab_background.png";
-import left_shelf from "../assets/left_shelf_label.svg";
+import left_shelf from "../assets/left_shelf.svg";
 import micro from "../assets/micro_label.svg";
 import right_shelf from "../assets/right_shelf.svg";
 import results from "../assets/results_label.svg";
@@ -17,8 +17,16 @@ import MicroScreen_3 from "./MicroScreen_3";
 import BloodTestScreen from "./BloodTestScreen";
 import MicroScreen_4 from "./MicroScreen_4";
 
-const LabScreen = ({setDnaScreen, setIsOffice, microScreen, setMicroScreen }) => {
+const LabScreen = ({
+  setDnaScreen,
+  setIsOffice,
+  microScreen,
+  setCurrentStage,
+  currentStage,
+  setMicroScreen,
+}) => {
   const [showLabScreen, setShowLabScreen] = useState(true);
+  const [isBlinkingMicro, setIsBlinkingMicro] = useState(false);
   const [showMicroScreen1, setShowMicroScreen1] = useState(false);
   const [showMicroScreen2, setShowMicroScreen2] = useState(false);
   const [showMicroScreen3, setShowMicroScreen3] = useState(false);
@@ -33,38 +41,64 @@ const LabScreen = ({setDnaScreen, setIsOffice, microScreen, setMicroScreen }) =>
   const [isLaudoAguaVisible, setIsLaudoAguaVisible] = useState(false);
   const [isExameAnatoVisible, setIsExameAnatoVisible] = useState(false);
 
-
   useEffect(() => {
-    if (microScreen.length !== 0) {
-      if (microScreen === "microScreen_1") {
-        handleFacaCacoClick();
-      }
-      if (microScreen === "microScreen_2") {
-        handleAmostraAguaClick();
-      }
-      if (microScreen === "microScreen_3") {
-        handleAmostraOrgaoClick();
-      }
-      if (microScreen === "microScreen_4") {
-        handleFiosClick();
-      }
+    if (
+      showMicroScreen1 === false &&
+      showMicroScreen2 === false &&
+      showMicroScreen3 === false &&
+      showMicroScreen4 === false &&
+      showBloodTest === false
+    ) {
+      setShowLabScreen(true);
     }
-  }, [microScreen]);
+  }, [showMicroScreen1, showMicroScreen2, showMicroScreen3, showMicroScreen4, showBloodTest]);
 
   const handleFacaCacoClick = () => {
     setShowMicroScreen1(true);
     setShowLabScreen(false);
     setMicroScreen("");
   };
+  const handleMicro1Finish = () => {
+    setShowMicroScreen1(false);
+    setShowLabScreen(true);
+    if(currentStage<2){
+      setCurrentStage(2)
+      setIsBlinkingMicro(true)
+    }
+  }
+  const handleMicro2Finish = () => {
+    setShowMicroScreen2(false);
+    setShowLabScreen(true);
+    // if(currentStage<4){
+    //   setCurrentStage(4)
+    //   setIsBlinkingMicro(true)
+    // }
+  };
   const handleAmostraAguaClick = () => {
     setShowMicroScreen2(true);
     setShowLabScreen(false);
     setMicroScreen("");
   };
+  const handleMicro3Finish = () => {
+    setShowMicroScreen3(false);
+    setShowLabScreen(true);
+    // if(currentStage<4){
+    //   setCurrentStage(4)
+    //   setIsBlinkingMicro(true)
+    // }
+  };
   const handleAmostraOrgaoClick = () => {
     setShowMicroScreen3(true);
     setShowLabScreen(false);
     setMicroScreen("");
+  };
+  const handleMicro4Finish = () => {
+    setShowMicroScreen4(false);
+    setShowLabScreen(true);
+    // if(currentStage<4){
+    //   setCurrentStage(4)
+    //   setIsBlinkingMicro(true)
+    // }
   };
   const handleFiosClick = () => {
     setShowMicroScreen4(true);
@@ -84,22 +118,37 @@ const LabScreen = ({setDnaScreen, setIsOffice, microScreen, setMicroScreen }) =>
     {
       title: "Sangue presente na faca e caco de vidro",
       onClick: handleFacaCacoClick,
+      disabled: currentStage < 1 ? true : false,
+    },
+    {
+      title: "Tipagem sanguínea",
+      onClick: handleBloodTestClick,
+      disabled: currentStage < 1 ? true : false,
+
     },
     {
       title: "Tricologia dos fios encontrados",
       onClick: handleFiosClick,
+      disabled: currentStage < 1 ? true : false,
+
     },
     {
       title: "DNA dos fios (análise no escritório)",
       onClick: handleDNAClick,
+      disabled: currentStage < 1 ? true : false,
+
     },
     {
       title: "Análise microbiológica da água",
       onClick: handleAmostraAguaClick,
+      disabled: currentStage < 1 ? true : false,
+
     },
     {
       title: "Histologia dos órgãos da vítima",
       onClick: handleAmostraOrgaoClick,
+      disabled: currentStage < 1 ? true : false,
+
     },
   ];
   const menuOptionsResults = [
@@ -121,7 +170,7 @@ const LabScreen = ({setDnaScreen, setIsOffice, microScreen, setMicroScreen }) =>
     },
   ];
 
-  const generatePopoverContent = (src, alt, isHovered) => (
+  const generatePopoverContent = (src, alt, isHovered,isBlinking ) => (
     <img
       src={src}
       alt={alt}
@@ -129,6 +178,7 @@ const LabScreen = ({setDnaScreen, setIsOffice, microScreen, setMicroScreen }) =>
         width: "100%",
         transition: "transform 0.3s ease",
         transform: isHovered ? "scale(1.05)" : "scale(1)",
+        animation: isBlinking ? "blink 0.6s infinite" : "none",
       }}
     />
   );
@@ -160,17 +210,13 @@ const LabScreen = ({setDnaScreen, setIsOffice, microScreen, setMicroScreen }) =>
           <div
             style={{
               position: "absolute",
-              top: "7%",
+              top: "11%",
               left: "2%",
               width: "45vw",
               zIndex: 1,
             }}
           >
-            <div
-              onMouseEnter={() => setIsHoveredLeftBoard(true)}
-              onMouseLeave={() => setIsHoveredLeftBoard(false)}
-              onClick={handleBloodTestClick}
-            >
+            <div>
               {generatePopoverContent(
                 left_shelf,
                 "Left Board",
@@ -194,10 +240,10 @@ const LabScreen = ({setDnaScreen, setIsOffice, microScreen, setMicroScreen }) =>
               trigger="hover"
             >
               <div
-                onMouseEnter={() => setIsHoveredMicro(true)}
+                onMouseEnter={() => {setIsHoveredMicro(true);setIsBlinkingMicro(false)}}
                 onMouseLeave={() => setIsHoveredMicro(false)}
               >
-                {generatePopoverContent(micro, "Micro", isHoveredMicro)}
+                {generatePopoverContent(micro, "Micro", isHoveredMicro, isBlinkingMicro)}
               </div>
             </Popover>
           </div>
@@ -244,19 +290,19 @@ const LabScreen = ({setDnaScreen, setIsOffice, microScreen, setMicroScreen }) =>
             isVisible={isExameNecroVisible}
             onClose={() => setIsExameNecroVisible(false)}
             imageSrc={exame_necro}
-            oversized 
+            oversized
           />
           <ImageModal
             isVisible={isExameSangueVisible}
             onClose={() => setIsExameSangueVisible(false)}
             imageSrc={exame_sangue}
-            oversized 
+            oversized
           />
           <ImageModal
             isVisible={isLaudoAguaVisible}
             onClose={() => setIsLaudoAguaVisible(false)}
             imageSrc={laudo_agua}
-            oversized 
+            oversized
           />
           <ImageModal
             isVisible={isExameAnatoVisible}
@@ -266,11 +312,13 @@ const LabScreen = ({setDnaScreen, setIsOffice, microScreen, setMicroScreen }) =>
           />
         </div>
       )}
-      {showMicroScreen1 && <MicroScreen_1 />}
-      {showMicroScreen2 && <MicroScreen_2 />}
-      {showMicroScreen3 && <MicroScreen_3 />}
-      {showMicroScreen4 && <MicroScreen_4 />}
-      {showBloodTest && <BloodTestScreen />}
+      {showMicroScreen1 && (
+        <MicroScreen_1 setShowMicroScreen1={setShowMicroScreen1} handleMicro1Finish={handleMicro1Finish} />
+      )}
+      {showMicroScreen2 && <MicroScreen_2 handleMicro2Finish={handleMicro2Finish} setShowMicroScreen={setShowMicroScreen2} />}
+      {showMicroScreen3 && <MicroScreen_3 handleMicro3Finish={handleMicro3Finish} setShowMicroScreen={setShowMicroScreen3} />}
+      {showMicroScreen4 && <MicroScreen_4 handleMicro4Finish={handleMicro4Finish} setShowMicroScreen={setShowMicroScreen4} />}
+      {showBloodTest && <BloodTestScreen setShowBloodTestScreen={setShowBloodTest}/>}
     </>
   );
 };

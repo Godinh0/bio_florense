@@ -5,11 +5,10 @@ import circle2 from "../assets/circle2.png";
 import circle3 from "../assets/circle3.png";
 
 const BloodTest = (props) => {
-  const [bloodType, setBloodType] = useState("");
   const [circle1Img, setCircle1Img] = useState(false);
   const [circle2Img, setCircle2Img] = useState(false);
   const [circle3Img, setCircle3Img] = useState(false);
-  const [validationMessage, setValidationMessage] = useState(null);
+
 
   const uploadImage = (event) => {
     console.log("Circle clicked", event.target.id);
@@ -23,12 +22,13 @@ const BloodTest = (props) => {
 
   const handleInputChange = (event) => {
     const inputValue = event.target.value.toUpperCase();
-    setBloodType(inputValue);
+    props.setBloodType(inputValue);
+    localStorage.setItem("bloodType",inputValue)
 
     if (inputValue === "A+") {
-      setValidationMessage("Correto");
+      props.setValidationMessage("Correto");
     } else {
-      setValidationMessage("Incorreto");
+      props.setValidationMessage("Incorreto");
     }
   };
   return (
@@ -77,16 +77,16 @@ const BloodTest = (props) => {
       >
         <p className="title">Tipo Sanguineo</p>
         <input
-          value={bloodType}
+          value={props.bloodType}
           onChange={handleInputChange}
           autoCapitalize=""
           title="Tipo Sanguineo"
         />
-        {bloodType && (
+        {props.bloodType && (
           <p
-            style={{ color: validationMessage === "Correto" ? "green" : "red" }}
+            style={{ color: props.validationMessage === "Correto" ? "green" : "red" }}
           >
-            {validationMessage}
+            {props.validationMessage}
           </p>
         )}
       </div>

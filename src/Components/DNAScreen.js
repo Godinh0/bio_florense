@@ -41,6 +41,10 @@ const DNAScreen = ({ handleDNA }) => {
           setShowFirstDialog(false);
           setShowSecondDialog(true);
         }}
+        onCancel={()=>{
+          handleDNA()
+        }}
+        closable
         show={showFirstDialog}
       />
       <ModalButtons
@@ -62,10 +66,14 @@ const DNAScreen = ({ handleDNA }) => {
             </div>
           </>
         }
-        onCancel={() => {
+        onBack={() => {
           setShowFirstDialog(true);
           setShowSecondDialog(false);
         }}
+        onCancel={()=>{
+          handleDNA()
+        }}
+        closable
         onConfirm={() => {
           setShowSecondDialog(false);
           handleDNA();
