@@ -4,7 +4,7 @@ import OfficeScreen from "./Components/OfficeScreen";
 import LabScreen from "./Components/LabScreen";
 import { Button } from "antd";
 import { ArrowRightOutlined, ArrowLeftOutlined, RedoOutlined, InfoCircleOutlined } from "@ant-design/icons";
-import { ReactFloatingBalloons } from 'react-floating-balloons';  // Importe o componente corretamente
+import Confetti from 'react-confetti';
 import ModalButtons from "./Components/ModalButtons";
 
 const App = () => {
@@ -18,12 +18,12 @@ const App = () => {
   const [currentStage, setCurrentStage] = useState(localStorage.getItem("currentStage") || 0);
 
   const handleClick = () => {
-    setIsOffice(!isOffice); 
+    setIsOffice(!isOffice);
   };
 
   const handleReset = () => {
     localStorage.clear();
-    window.location.reload(); 
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const App = () => {
 
   return (
     <div style={{ position: "relative" }}>
-      {currentStage === 10 && <ReactFloatingBalloons count={20} msgText="" />}
+      {currentStage === 10 && <Confetti numberOfPieces={200} />}
       <ModalButtons
         textCancel="Cancelar"
         textConfirm="Reiniciar"
@@ -49,7 +49,7 @@ const App = () => {
         }}
         show={showResetDialog}
         closable
-      /> 
+      />
       <ModalButtons
         textCancel=""
         textConfirm="Próximo"
@@ -69,7 +69,7 @@ const App = () => {
         }}
         show={showFirstDialog}
         closable
-      /> 
+      />
       <ModalButtons
         textCancel="Voltar"
         textConfirm="Próximo"
@@ -93,11 +93,11 @@ const App = () => {
         buttonless
         textCancel="Fechar"
         textConfirm=""
-        message= {<p> Autores: 
-        <br/><br/>Nome: João Silva 
-        <br/>Email: joao.silva@example.com
-        <br/><br/>Nome: Maria Oliveira 
-        <br/>Email: maria.oliveira@example.com </p>}
+        message={<p> Autores: 
+        <br /><br />Nome: João Silva 
+        <br />Email: joao.silva@example.com
+        <br /><br />Nome: Maria Oliveira 
+        <br />Email: maria.oliveira@example.com </p>}
         onCancel={() => {
           setShowAuthorsDialog(false);
         }}
@@ -110,7 +110,7 @@ const App = () => {
           top: "1%",
           left: "1%",
           zIndex: 1,
-          backgroundColor: "#4CAF50",  // Verde
+          backgroundColor: "#4CAF50", // Verde
           color: "white",
           border: "2px solid #4CAF50",
           borderRadius: "10px",
@@ -129,7 +129,7 @@ const App = () => {
           top: "1%",
           right: "10%",
           zIndex: 1,
-          backgroundColor: "#1890FF",  // Azul
+          backgroundColor: "#1890FF", // Azul
           color: "white",
           border: "2px solid #1890FF",
           borderRadius: "10px",
@@ -148,7 +148,7 @@ const App = () => {
           top: "1%",
           right: "1%",
           zIndex: 1,
-          backgroundColor: "#f44336",  // Vermelho
+          backgroundColor: "#f44336", // Vermelho
           color: "white",
           border: "2px solid #f44336",
           borderRadius: "10px",
