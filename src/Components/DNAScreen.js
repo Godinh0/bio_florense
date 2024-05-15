@@ -1,12 +1,99 @@
 import React, { useState, useEffect } from "react";
 import evidence_background from "../assets/evidence_background.png";
+import image1 from "../assets/dnaimage.png";
 import dna_perfil from "../assets/dna_perfil.svg";
 import ModalButtons from "./ModalButtons";
+import AndreyRecord from "../assets/andrey_record.svg";
+import MarietaRecord from "../assets/marieta_record.svg";
+import GregorioRecord from "../assets/gregorio_record.svg";
+import ChiaraRecord from "../assets/chiara_record.svg";
+import OlegarioRecord from "../assets/olegario_record.svg";
+import MarkRecord from "../assets/mark_record.svg";
+import GeremiasRecord from "../assets/geremias_record.svg";
+import Menu from "./Menu";
+import { Button, Select } from "antd";
+import ImageModal from "./ImageModal";
+import ModalQuestion from "./ModalQuestion";
+import { Option } from "antd/es/mentions";
 
-const DNAScreen = ({ handleDNA }) => {
+const DNAScreen = ({ handleDNA, handleDNAFinish }) => {
   const [showFirstDialog, setShowFirstDialog] = useState(true);
-  const [showSecondDialog, setShowSecondDialog] = useState(false);
+  const [showImage1, setShowImage1] = useState(false);
+  const [showQuestion, setShowQuestion] = useState(false);
+  const [isAndreyRecordVisible, setIsAndreyRecordVisible] = useState(false);
+  const [isOlegarioRecordVisible, setIsOlegarioRecordVisible] = useState(false);
+  const [isGeremiasRecordVisible, setIsGeremiasRecordVisible] = useState(false);
+  const [isChiaraRecordVisible, setIsChiaraRecordVisible] = useState(false);
+  const [isMarietaRecordVisible, setIsMarietaRecordVisible] = useState(false);
+  const [isGregorioRecordVisible, setIsGregorioRecordVisible] = useState(false);
+  const [isMarkRecordVisible, setIsMarkRecordVisible] = useState(false);
+  const [validationMessage_A, setValidationMessage_A] = useState(
+    localStorage.getItem("validationDNAMessage_A") || null
+  );
+  const [answer_A, setAnswer_A] = useState(
+    localStorage.getItem("AnswerDNA_A") || null
+  );
+  const [correctAnswer, setCorrectAnswer] = useState(false);
 
+  const options = [
+    { name: "Andrey" },
+    { name: "Marieta" },
+    { name: "Gregorio" },
+    { name: "Chiara" },
+    { name: "Olegario" },
+    { name: "Mark" },
+    { name: "Geremias" },
+  ];
+
+  useEffect(() => {
+    if (validationMessage_A === "Correto") {
+      setCorrectAnswer(true);
+    } else setCorrectAnswer(false);
+  }, [validationMessage_A]);
+
+  const onChange_A = (value) => {
+    const msg = value === "Chiara" ? "Correto" : "Incorreto";
+    setValidationAndStore("validationDNAMessage_A", msg);
+    setAnswer_A(value);
+    localStorage.setItem("AnswerDNA_A", value);
+  };
+
+  const setValidationAndStore = (key, value) => {
+    localStorage.setItem(key, value);
+        setValidationMessage_A(value);
+  };
+
+
+  const menuOptionsWitness = [
+    {
+      title: "Olegário",
+      onClick: () => setIsOlegarioRecordVisible(true),
+    },
+    {
+      title: "Marieta",
+      onClick: () => setIsMarietaRecordVisible(true),
+    },
+    {
+      title: "Chiara",
+      onClick: () => setIsChiaraRecordVisible(true),
+    },
+    {
+      title: "Andrey",
+      onClick: () => setIsAndreyRecordVisible(true),
+    },
+    {
+      title: "Geremias",
+      onClick: () => setIsGeremiasRecordVisible(true),
+    },
+    {
+      title: "Gregório",
+      onClick: () => setIsGregorioRecordVisible(true),
+    },
+    {
+      title: "Mark",
+      onClick: () => setIsMarkRecordVisible(true),
+    },
+  ];
   return (
     <>
       <div
@@ -30,7 +117,115 @@ const DNAScreen = ({ handleDNA }) => {
             zIndex: -1,
           }}
         />
+        {showImage1 && (
+          <>
+            <div
+              style={{
+                position: "absolute",
+                top: "10%",
+                right: "80%",
+                width: "70vw",
+                zIndex: 2,
+                display: "flex",
+                flexDirection: "column",
+                gap: 20,
+                alignItems: "end",
+              }}
+            >
+              <Menu options={menuOptionsWitness} />
+            </div>
+            <div
+              style={{
+                position: "absolute",
+                top: "5%",
+                left: "30%",
+                width: "70vw",
+                zIndex: 1,
+                display: "flex",
+                flexDirection: "column",
+                gap: 6,
+                alignItems: "end",
+              }}
+            >
+              <img style={{ width: "100%" }} src={image1} alt="Digitais" />
+              <div
+                style={{
+                  width: "80%",
+                  marginRight: "10%",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Button
+                  onClick={() => setShowQuestion(true)}
+                  style={{ width: "30%", minHeight: 40 }}
+                >
+                  VERIFICAÇÃO FINAL
+                </Button>
+                <Button
+                  onClick={handleDNA}
+                  style={{ width: "30%", minHeight: 40 }}
+                >
+                  VOLTAR
+                </Button>
+              </div>
+            </div>
+          </>
+        )}
       </div>
+      <ModalQuestion
+        textConfirm="Ir para o Escritório"
+        message=""
+        onConfirm={() => {
+          handleDNAFinish();
+        }}
+        show={showQuestion}
+        onCancel={() => {
+          setShowQuestion(false);
+        }}
+        correctAnswer={correctAnswer}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "left",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 20,
+            }}
+          >
+            <p>A sequência de nucleotídeos corresponde ao fio de cabelo de:</p>
+            <Select
+              value={answer_A}
+              style={{ minWidth: "25%" }}
+              onChange={onChange_A}
+              placeholder="Selecione"
+            >
+              {options.map((option) => {
+                return (
+                  <Option key={option.index} value={option.name}>
+                    {option.name}
+                  </Option>
+                );
+              })}
+            </Select>
+            <p
+              style={{
+                color: validationMessage_A === "Correto" ? "green" : "red",
+              }}
+            >
+              {validationMessage_A}
+            </p>
+          </div>
+        </div>
+      </ModalQuestion>
       <ModalButtons
         textCancel=""
         textConfirm="Próximo"
@@ -39,46 +234,68 @@ const DNAScreen = ({ handleDNA }) => {
         carrega o menor pedacinho possível de informação genética. "
         onConfirm={() => {
           setShowFirstDialog(false);
-          setShowSecondDialog(true);
+          setShowImage1(true);
         }}
-        onCancel={()=>{
-          handleDNA()
+        onCancel={() => {
+          handleDNA();
         }}
         closable
         show={showFirstDialog}
       />
-      <ModalButtons
-        textCancel="Voltar"
-        textConfirm="Ir para o Escritório"
-        message={
-          <>
-          <div style={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
-            <p>
-              O DNA do fio encontrado noo moletom da vítima foi extraído do
-              bulbo capilar (raiz do pêlo) resultando na sequência de
-              nucleotídeos a seguir:
-            </p>
-            <img style={{width:"60%"}} src={dna_perfil}></img>
-            <p>
-            Agora, volte para o escritório e abra as fichas das testemunhas 
-            para efetuar a comparação e descobrir o responsável pelo fio que foi encontrado.
-            </p>
-            </div>
-          </>
-        }
-        onBack={() => {
-          setShowFirstDialog(true);
-          setShowSecondDialog(false);
+      <ImageModal
+        isVisible={isAndreyRecordVisible}
+        onClose={() => {
+          setIsAndreyRecordVisible(false);
         }}
-        onCancel={()=>{
-          handleDNA()
+        imageSrc={AndreyRecord}
+      />
+
+      <ImageModal
+        isVisible={isMarietaRecordVisible}
+        onClose={() => {
+          setIsMarietaRecordVisible(false);
         }}
-        closable
-        onConfirm={() => {
-          setShowSecondDialog(false);
-          handleDNA();
+        imageSrc={MarietaRecord}
+      />
+
+      <ImageModal
+        isVisible={isGregorioRecordVisible}
+        onClose={() => {
+          setIsGregorioRecordVisible(false);
         }}
-        show={showSecondDialog}
+        imageSrc={GregorioRecord}
+      />
+
+      <ImageModal
+        isVisible={isChiaraRecordVisible}
+        onClose={() => {
+          setIsChiaraRecordVisible(false);
+        }}
+        imageSrc={ChiaraRecord}
+      />
+
+      <ImageModal
+        isVisible={isOlegarioRecordVisible}
+        onClose={() => {
+          setIsOlegarioRecordVisible(false);
+        }}
+        imageSrc={OlegarioRecord}
+      />
+
+      <ImageModal
+        isVisible={isMarkRecordVisible}
+        onClose={() => {
+          setIsMarkRecordVisible(false);
+        }}
+        imageSrc={MarkRecord}
+      />
+
+      <ImageModal
+        isVisible={isGeremiasRecordVisible}
+        onClose={() => {
+          setIsGeremiasRecordVisible(false);
+        }}
+        imageSrc={GeremiasRecord}
       />
     </>
   );

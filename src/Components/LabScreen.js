@@ -20,13 +20,14 @@ import MicroScreen_4 from "./MicroScreen_4";
 const LabScreen = ({
   setDnaScreen,
   setIsOffice,
-  microScreen,
   setCurrentStage,
   currentStage,
   setMicroScreen,
+  setShowFirstDialog
 }) => {
   const [showLabScreen, setShowLabScreen] = useState(true);
   const [isBlinkingMicro, setIsBlinkingMicro] = useState(false);
+  const [isBlinkingResults, setIsBlinkingResults] = useState(false);
   const [showMicroScreen1, setShowMicroScreen1] = useState(false);
   const [showMicroScreen2, setShowMicroScreen2] = useState(false);
   const [showMicroScreen3, setShowMicroScreen3] = useState(false);
@@ -63,16 +64,15 @@ const LabScreen = ({
     setShowLabScreen(true);
     if(currentStage<2){
       setCurrentStage(2)
-      setIsBlinkingMicro(true)
-    }
-  }
+      setIsBlinkingResults(true)
+  }}
   const handleMicro2Finish = () => {
     setShowMicroScreen2(false);
     setShowLabScreen(true);
-    // if(currentStage<4){
-    //   setCurrentStage(4)
-    //   setIsBlinkingMicro(true)
-    // }
+    if(currentStage<8){
+      setCurrentStage(8)
+      setIsBlinkingResults(true)
+    }
   };
   const handleAmostraAguaClick = () => {
     setShowMicroScreen2(true);
@@ -82,10 +82,9 @@ const LabScreen = ({
   const handleMicro3Finish = () => {
     setShowMicroScreen3(false);
     setShowLabScreen(true);
-    // if(currentStage<4){
-    //   setCurrentStage(4)
-    //   setIsBlinkingMicro(true)
-    // }
+      setCurrentStage(10)
+      setShowFirstDialog(true)
+
   };
   const handleAmostraOrgaoClick = () => {
     setShowMicroScreen3(true);
@@ -95,10 +94,10 @@ const LabScreen = ({
   const handleMicro4Finish = () => {
     setShowMicroScreen4(false);
     setShowLabScreen(true);
-    // if(currentStage<4){
-    //   setCurrentStage(4)
-    //   setIsBlinkingMicro(true)
-    // }
+    if(currentStage<5){
+      setCurrentStage(5)
+      setIsBlinkingMicro(true)
+    }
   };
   const handleFiosClick = () => {
     setShowMicroScreen4(true);
@@ -108,11 +107,28 @@ const LabScreen = ({
   const handleBloodTestClick = () => {
     setShowBloodTest(true);
     setShowLabScreen(false);
-    setMicroScreen("");
+    if(currentStage<4){
+      setCurrentStage(4)
+      setIsBlinkingMicro(true)
+    }
   };
   const handleDNAClick = () => {
     setIsOffice(true);
     setDnaScreen(true);
+  };
+  const handleExamClose = (exam) => {
+    if(exam=="BloodExam" && currentStage<3){
+      setCurrentStage(3)
+      setIsBlinkingMicro(true)
+    }
+    if(exam=="LaudoAgua" && currentStage<7){
+      setCurrentStage(7)
+      setIsBlinkingMicro(true)
+    }
+    if(exam=="ExameAnato" && currentStage<9){
+      setCurrentStage(9)
+      setIsBlinkingMicro(true)
+    }
   };
   const menuOptionsMicro = [
     {
@@ -123,31 +139,31 @@ const LabScreen = ({
     {
       title: "Tipagem sanguínea",
       onClick: handleBloodTestClick,
-      disabled: currentStage < 1 ? true : false,
+      disabled: currentStage < 3 ? true : false,
 
     },
     {
       title: "Tricologia dos fios encontrados",
       onClick: handleFiosClick,
-      disabled: currentStage < 1 ? true : false,
+      disabled: currentStage < 4 ? true : false,
 
     },
     {
       title: "DNA dos fios (análise no escritório)",
       onClick: handleDNAClick,
-      disabled: currentStage < 1 ? true : false,
+      disabled: currentStage < 5 ? true : false,
 
     },
     {
       title: "Análise microbiológica da água",
       onClick: handleAmostraAguaClick,
-      disabled: currentStage < 1 ? true : false,
+      disabled: currentStage < 7 ? true : false,
 
     },
     {
       title: "Histologia dos órgãos da vítima",
       onClick: handleAmostraOrgaoClick,
-      disabled: currentStage < 1 ? true : false,
+      disabled: currentStage < 9? true : false,
 
     },
   ];
@@ -159,14 +175,17 @@ const LabScreen = ({
     {
       title: "Exame de Sangue",
       onClick: () => setIsExameSangueVisible(true),
+      disabled: currentStage < 2 ? true : false,
     },
     {
       title: "Análise microbiológica da Água",
       onClick: () => setIsLaudoAguaVisible(true),
+      disabled: currentStage < 6 ? true : false,
     },
     {
       title: "Exame Anatomopatológico",
       onClick: () => setIsExameAnatoVisible(true),
+      disabled: currentStage < 8 ? true : false,
     },
   ];
 
@@ -279,10 +298,10 @@ const LabScreen = ({
               }}
             >
               <div
-                onMouseEnter={() => setIsHoveredResults(true)}
+                onMouseEnter={() => {setIsHoveredResults(true); setIsBlinkingResults(false)}}
                 onMouseLeave={() => setIsHoveredResults(false)}
               >
-                {generatePopoverContent(results, "Witness", isHoveredResults)}
+                {generatePopoverContent(results, "Witness", isHoveredResults, isBlinkingResults)}
               </div>
             </div>
           </Popover>
@@ -294,19 +313,19 @@ const LabScreen = ({
           />
           <ImageModal
             isVisible={isExameSangueVisible}
-            onClose={() => setIsExameSangueVisible(false)}
+            onClose={() => {setIsExameSangueVisible(false);handleExamClose("BloodExam")}}
             imageSrc={exame_sangue}
             oversized
           />
           <ImageModal
             isVisible={isLaudoAguaVisible}
-            onClose={() => setIsLaudoAguaVisible(false)}
+            onClose={() => {setIsLaudoAguaVisible(false);handleExamClose("LaudoAgua")}}
             imageSrc={laudo_agua}
             oversized
           />
           <ImageModal
             isVisible={isExameAnatoVisible}
-            onClose={() => setIsExameAnatoVisible(false)}
+            onClose={() => {setIsExameAnatoVisible(false);handleExamClose("ExameAnato")}}
             imageSrc={exame_anato}
             oversized
           />

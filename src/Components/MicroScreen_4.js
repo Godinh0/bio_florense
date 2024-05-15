@@ -267,7 +267,7 @@ const MicroScreen_4 = ({setShowMicroScreen, handleMicro4Finish}) => {
       </div>
       <ModalQuestion
         textConfirm="Ir para o Laboratório"
-        message="Pergunta?"
+        message="VERIFICAÇÃO TRICOLOGIA"
         onConfirm={() => handleMicro4Finish()}
         show={showQuestion}
         onCancel={() => setShowQuestion(false)}

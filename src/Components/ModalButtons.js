@@ -8,7 +8,8 @@ const ModalButtons = ({
   onBack,
   onConfirm,
   show,
-  closable
+  closable,
+  buttonless
 }) => {
   return (
     <>
@@ -22,7 +23,7 @@ const ModalButtons = ({
         maskClosable={false}
       >
         {message}
-        <div style={{ display: "flex", justifyContent: "center", gap: 32 }}>
+        {buttonless?null:<div style={{ display: "flex", justifyContent: "center", gap: 32 }}>
           {textCancel && (
             <Button key="1" className="btnCancel" onClick={onBack}>
               {textCancel}
@@ -37,7 +38,7 @@ const ModalButtons = ({
           >
             {textConfirm}
           </Button>
-        </div>
+        </div>}
       </Modal>
     </>
   );

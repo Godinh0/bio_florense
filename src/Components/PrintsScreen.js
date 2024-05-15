@@ -283,7 +283,7 @@ const setValidationAndStore = (key, value) => {
       />
       <ModalQuestion
         textConfirm="Ir para o Escritório"
-        message="Pergunta?"
+        message="VERIFICAÇÃO DIGITAIS"
         onConfirm={() => {
           handlePrintsFinish();
         }}

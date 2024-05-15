@@ -25,7 +25,7 @@ const BloodTest = (props) => {
     props.setBloodType(inputValue);
     localStorage.setItem("bloodType",inputValue)
 
-    if (inputValue === "A+") {
+    if (inputValue === "B-") {
       props.setValidationMessage("Correto");
     } else {
       props.setValidationMessage("Incorreto");

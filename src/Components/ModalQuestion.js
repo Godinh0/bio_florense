@@ -8,6 +8,7 @@ const ModalQuestion = ({
   onConfirm,
   show,
   children,
+  noExam,
 }) => {
   return (
     <>
@@ -20,6 +21,17 @@ const ModalQuestion = ({
       >
         {message}
         {children}
+        {correctAnswer && (noExam ? (
+          ""
+        ) : (
+          <p
+            style={{
+              color: "green",
+            }}
+          >
+            Você liberou um novo exame
+          </p>
+        ))}
         <div style={{ display: "flex", justifyContent: "center", gap: 32 }}>
           <Button
             key="2"
@@ -28,7 +40,7 @@ const ModalQuestion = ({
               color: correctAnswer ? "" : "#B8B3B3",
               borderColor: correctAnswer ? "" : "#B8B3B3",
               cursor: correctAnswer ? "normal" : "pointer",
-              backgroundColor:correctAnswer?"":"white"
+              backgroundColor: correctAnswer ? "" : "white",
             }}
             type="primary"
             onClick={onConfirm}

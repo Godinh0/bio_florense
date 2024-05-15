@@ -91,7 +91,7 @@ const BloodTestScreen = ({ setShowBloodTestScreen }) => {
           <div
             style={{
               position: "absolute",
-              top: "80%",
+              top: "85%",
               left: "17%",
               width: "70vw",
               zIndex: 1,
@@ -104,13 +104,14 @@ const BloodTestScreen = ({ setShowBloodTestScreen }) => {
             <div
               style={{
                 width: "80%",
-                marginRight: "8%",
+                marginRight: "9%",
                 display: "flex",
                 flexDirection: "row",
                 justifyContent: "center",
                 gap: 20,
               }}
             >
+              
               <Button
                 onClick={() => setShowBloodTestScreen(false)}
                 style={{ width: "30%", minHeight: 40 }}
@@ -133,9 +134,9 @@ const BloodTestScreen = ({ setShowBloodTestScreen }) => {
             aglutinogênio B. Sendo assim, o tecido sanguíneo foi classificado de
             acordo com os tipos: A, B, AB e O, conhecido como sistema ABO
             <br />
-            <br />E sangue positivo ou negativo? Isso depende do fator Rh, que
+            <br />E tipo sanguíneo positivo ou negativo? Isso depende do fator Rh, que
             determina a presença ou a ausência de aglutinina nas hemácias. O
-            sangue que tem Rh- não possui aglutinina, enquanto o Rh+ possui.
+            tipo sanguíneo que tem Rh- não possui aglutinina, enquanto o Rh+ possui.
           </p>
         }
         onConfirm={() => {

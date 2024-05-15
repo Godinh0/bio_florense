@@ -216,7 +216,7 @@ const MicroScreen_2 = ({setShowMicroScreen, handleMicro2Finish}) => {
       </div>
       <ModalQuestion
         textConfirm="Ir para o Laboratório"
-        message="Pergunta?"
+        message="VERIFICAÇÃO MICROBIOLOGIA"
         onConfirm={() => handleMicro2Finish()}
         show={showQuestion}
         onCancel={() => setShowQuestion(false)}

@@ -266,11 +266,12 @@ const MicroScreen_3 = ({setShowMicroScreen, handleMicro3Finish}) => {
       </div>
       <ModalQuestion
         textConfirm="Ir para o Laboratório"
-        message="Pergunta?"
+        message="VERIFICAÇÃO ÓRGÃOS"
         onConfirm={() => handleMicro3Finish()}
         show={showQuestion}
         onCancel={() => setShowQuestion(false)}
         correctAnswer={correctAnswer}
+        noExam
       >
         <div
           style={{

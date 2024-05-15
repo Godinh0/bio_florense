@@ -167,6 +167,15 @@ const OfficeScreen = ({
   const handleDNA = () => {
     setShowOfficeScreen(!showOfficeScreen);
     setDnaScreen(!dnaScreen);
+
+  };
+  const handleDNAFinish = () => {
+    setShowOfficeScreen(!showOfficeScreen);
+    setDnaScreen(!dnaScreen);
+    if(currentStage<6){
+      setCurrentStage(6)
+      setIsOffice(false);
+    }
   };
   useEffect(() => {
     if (dnaScreen === true) {
@@ -211,21 +220,21 @@ const OfficeScreen = ({
       onClick: () => {
         setIsOffice(false);
       },
-      disabled: currentStage < 2 ? true : false,
+      disabled: currentStage < 4 ? true : false,
     },
     {
       title: "Amostra de água (análise no laboratório)",
       onClick: () => {
         setIsOffice(false);
       },
-      disabled: currentStage < 3 ? true : false,
+      disabled: currentStage < 7 ? true : false,
     },
     {
       title: "Amostra de orgãos (análise no laboratório)",
       onClick: () => {
         setIsOffice(false);
       },
-      disabled: currentStage < 4 ? true : false,
+      disabled: currentStage < 9 ? true : false,
     },
   ];
   const menuOptionsRighBoard = [
@@ -386,7 +395,7 @@ const OfficeScreen = ({
             <div
               style={{
                 position: "absolute",
-                top: "5%",
+                top: "7%",
                 left: "5%",
                 width: "30vw",
                 zIndex: 1,
@@ -449,7 +458,7 @@ const OfficeScreen = ({
             <div
               style={{
                 position: "absolute",
-                top: "5%",
+                top: "7%",
                 right: "15%",
                 width: "15vw",
                 zIndex: 1,
@@ -755,7 +764,7 @@ const OfficeScreen = ({
         </>
       )}
       {showPrintsScreen && <PrintsScreen handlePrints={handlePrints} handlePrintsFinish={handlePrintsFinish} />}
-      {dnaScreen && <DNAScreen handleDNA={handleDNA} />}
+      {dnaScreen && <DNAScreen handleDNAFinish={handleDNAFinish} handleDNA={handleDNA} />}
     </>
   );
 };
