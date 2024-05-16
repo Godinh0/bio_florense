@@ -372,11 +372,12 @@ const MicroScreen_3 = ({setShowMicroScreen, handleMicro3Finish}) => {
       <ModalButtons
         textCancel=""
         textConfirm="Próximo"
-        message="OH NÃO! Amostras foram coletadas de órgãos do corpo de Mark, porém, ao chegar no 
-        laboratório os órgãos não foram corretamente identificados por outro biólogo aqui do laboratório, 
-        isso é uma grave falha técnica! 
-        Precisamos obervar a organização histológica descrita no exame anatomopatológico fornecido e 
-        comparar com as lâminas que fizemos para identificarmos a qual órgão de Mark cada lâmina pertence. "
+        message="OH NÃO! Amostras de órgãos do corpo de Mark foram coletadas, 
+        porém, não foram corretamente identificadas por outro biólogo aqui do laboratório, 
+        isso é uma grave falha técnica! Precisamos obervar a organização histológica descrita 
+        no exame anatomopatológico fornecido e comparar com as lâminas que fizemos para 
+        identificarmos a qual órgão de Mark cada lâmina pertence. "
+        
         onConfirm={() => {
           setShowFirstDialog(false);
           setShowSecondDialog(true);
@@ -390,12 +391,11 @@ const MicroScreen_3 = ({setShowMicroScreen, handleMicro3Finish}) => {
       <ModalButtons
         textCancel="Voltar"
         textConfirm="Próximo"
-        message="Antes, precisamos saber que os órgãos são estruturas formadas por um 
-        conjunto de tecidos que atuam para desempenhar funções específicas no nosso organismo. 
-        O coração, por exemplo, é um órgão formado, principalmente, por tecido muscular estriado 
-        cardíaco, o qual se caracteriza por apresentar células musculares. Já o cérebro é um órgão 
-        que compõe o sistema nervoso central, logo, possui um tecido nervoso com células neuronais 
-        capazes de conduzir os impulsos nervosos."
+        message="Antes, precisamos saber que o coração é um órgão formado, principalmente, 
+        por tecido muscular estriado cardíaco, o qual se caracteriza por apresentar células 
+        musculares. O fígado é um órgão formado por células epitelias globosas organizadas em 
+        fileiras (cordões). Já o cérebro, é um órgão que compõe o sistema nervoso central, apresentando 
+        tecido nervoso com células neuronais capazes de conduzir os impulsos nervosos."
         onBack={() => {
           setShowFirstDialog(true);
           setShowSecondDialog(false);

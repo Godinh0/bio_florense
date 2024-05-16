@@ -3,8 +3,13 @@ import "./App.css";
 import OfficeScreen from "./Components/OfficeScreen";
 import LabScreen from "./Components/LabScreen";
 import { Button } from "antd";
-import { ArrowRightOutlined, ArrowLeftOutlined, RedoOutlined, InfoCircleOutlined } from "@ant-design/icons";
-import Confetti from 'react-confetti';
+import {
+  ArrowRightOutlined,
+  ArrowLeftOutlined,
+  RedoOutlined,
+  InfoCircleOutlined,
+} from "@ant-design/icons";
+import Confetti from "react-confetti";
 import ModalButtons from "./Components/ModalButtons";
 
 const App = () => {
@@ -15,7 +20,9 @@ const App = () => {
   const [showSecondDialog, setShowSecondDialog] = useState(false);
   const [showResetDialog, setShowResetDialog] = useState(false);
   const [showAuthorsDialog, setShowAuthorsDialog] = useState(false);
-  const [currentStage, setCurrentStage] = useState(localStorage.getItem("currentStage") || 0);
+  const [currentStage, setCurrentStage] = useState(
+    localStorage.getItem("currentStage") || 0
+  );
 
   const handleClick = () => {
     setIsOffice(!isOffice);
@@ -31,6 +38,14 @@ const App = () => {
     console.log(localStorage.getItem("currentStage"));
   }, [currentStage]);
 
+  const copyToClipboard = (email, event) => {
+    event.preventDefault(); // Impede que o navegador tente abrir o link
+    navigator.clipboard.writeText(email).then(() => {
+      alert(`${email} copiado para a área de transferência!`); // Feedback opcional
+    }).catch(err => {
+      console.error('Falha ao copiar e-mail: ', err);
+    });
+  };
   return (
     <div style={{ position: "relative" }}>
       {currentStage === 10 && <Confetti numberOfPieces={200} />}
@@ -93,11 +108,34 @@ const App = () => {
         buttonless
         textCancel="Fechar"
         textConfirm=""
-        message={<p> Autores: 
-        <br /><br />Nome: João Silva 
-        <br />Email: joao.silva@example.com
-        <br /><br />Nome: Maria Oliveira 
-        <br />Email: maria.oliveira@example.com </p>}
+        message={
+          <p>
+            Autores:
+            <br /><br />
+            Educadora Melissa Spíndola Estevam
+            <br />
+            Emails:<br />
+            <a href="#" onClick={(e) => copyToClipboard("melissa.estevam@ufpr.br", e)}>melissa.estevam@ufpr.br</a>
+            <br />
+            <a href="#" onClick={(e) => copyToClipboard("melissa.s.estevam@gmail.com", e)}>melissa.s.estevam@gmail.com</a>
+            <br /><br />
+            Programador Gabriel Godinho Ferreira
+            <br />
+            Emails: <br />
+            <a href="#" onClick={(e) => copyToClipboard("gabrielgodinho014@gmail.com", e)}>gabrielgodinho014@gmail.com</a>
+            <br />
+            <a href="#" onClick={(e) => copyToClipboard("gabriel.ferreira4@pucpr.edu.br", e)}>gabriel.ferreira4@pucpr.edu.br</a>
+            <br /><br />
+            Profa. Dra. Flavia Sant’Anna Rios 
+            <br />
+            Emails: <br />
+            <a href="#" onClick={(e) => copyToClipboard("flaviasrios@ufpr.br", e)}>flaviasrios@ufpr.br</a>
+            <br />
+            <a href="#" onClick={(e) => copyToClipboard("flaviasrios@gmail.com", e)}>flaviasrios@gmail.com</a>
+          </p>
+        }
+        
+        
         onCancel={() => {
           setShowAuthorsDialog(false);
         }}
@@ -162,26 +200,26 @@ const App = () => {
         Reiniciar
       </Button>
       <div>
-        {isOffice ? 
-          <OfficeScreen 
-            currentStage={currentStage} 
-            setCurrentStage={setCurrentStage} 
-            dnaScreen={dnaScreen} 
-            setDnaScreen={setDnaScreen} 
-            setIsOffice={setIsOffice} 
-            setMicroScreen={setMicroScreen} 
-          /> 
-          : 
-          <LabScreen 
-            currentStage={currentStage} 
-            setCurrentStage={setCurrentStage} 
-            setDnaScreen={setDnaScreen} 
-            setIsOffice={setIsOffice} 
-            microScreen={microScreen} 
+        {isOffice ? (
+          <OfficeScreen
+            currentStage={currentStage}
+            setCurrentStage={setCurrentStage}
+            dnaScreen={dnaScreen}
+            setDnaScreen={setDnaScreen}
+            setIsOffice={setIsOffice}
+            setMicroScreen={setMicroScreen}
+          />
+        ) : (
+          <LabScreen
+            currentStage={currentStage}
+            setCurrentStage={setCurrentStage}
+            setDnaScreen={setDnaScreen}
+            setIsOffice={setIsOffice}
+            microScreen={microScreen}
             setMicroScreen={setMicroScreen}
             setShowFirstDialog={setShowFirstDialog}
           />
-        }
+        )}
       </div>
     </div>
   );

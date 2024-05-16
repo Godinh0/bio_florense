@@ -5,9 +5,10 @@ import circle2 from "../assets/circle2.png";
 import circle3 from "../assets/circle3.png";
 
 const BloodTest = (props) => {
-  const [circle1Img, setCircle1Img] = useState(false);
-  const [circle2Img, setCircle2Img] = useState(false);
-  const [circle3Img, setCircle3Img] = useState(false);
+  const [circle1Img, setCircle1Img] = useState(localStorage.getItem("circle1Clicked") === "true");
+  const [circle2Img, setCircle2Img] = useState(localStorage.getItem("circle2Clicked") === "true");
+  const [circle3Img, setCircle3Img] = useState(localStorage.getItem("circle3Clicked") === "true");
+
 
 
   const uploadImage = (event) => {

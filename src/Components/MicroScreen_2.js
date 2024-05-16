@@ -293,10 +293,9 @@ const MicroScreen_2 = ({setShowMicroScreen, handleMicro2Finish}) => {
         textCancel=""
         textConfirm="Próximo"
         message="Amostras de água foram coletadas no poço artesiano que abastecia o hotel e no 
-        Rio Manso em que Mark foi nadar no primeiro dia de sua estada. Para analisarmos estas duas amostras, 
-        precisamos saber que Bactérias são unicelulares e procariontes (sem núcleo) consideradas seres vivos 
-        pois realizam suas funções vitais, e Protozoários são unicelulares e eucariontes (com núcleo) e 
-        heterotróficos (sem capacidade de produzir seu próprio alimento se alimentando de outros seres vivos)."
+        Rio Manso em que Mark foi nadar no primeiro dia de sua estada. Para analisarmos estas 
+        duas amostras, precisamos saber que Bactérias são unicelulares e procariontes (sem núcleo) 
+        e Protozoários são unicelulares e eucariontes (com núcleo)."
         onConfirm={() => {
           setShowFirstDialog(false);
           setShowSecondDialog(true);
@@ -310,10 +309,10 @@ const MicroScreen_2 = ({setShowMicroScreen, handleMicro2Finish}) => {
       <ModalButtons
         textCancel="Voltar"
         textConfirm="Próximo"
-        message="Vamos analisar no microscópio óptico a amostra de água coletada no Rio Manso e em microscópio 
-        eletrônico a amostra coletada no poço artessiano, em seguida, comparar o que é possível observar 
-        no microscópio com a informações presentes no laudo fornecido da análise microbiológica da água e 
-        obtermos uma conclusão. "
+        message="Vamos analisar no microscópio óptico a amostra de água coletada no Rio Manso 
+        e em microscópio eletrônico a amostra coletada no poço artessiano, em seguida, comparar 
+        o que é possível observar no microscópio com a informações presentes no laudo da análise 
+        microbiológica da água para obtermos uma conclusão. "
         onBack={() => {
           setShowFirstDialog(true);
           setShowSecondDialog(false);

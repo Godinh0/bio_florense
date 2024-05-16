@@ -64,23 +64,8 @@ const OfficeScreen = ({
   const [showOfficeScreen, setShowOfficeScreen] = useState(true);
   const [showPrintsScreen, setShowPrintsScreen] = useState(false);
   const [localStorageSet, setLocalStorageSet] = useState(false);
-  const [firstTimeOffice, setFirstTimeOffice] = useState(false);
-  const [tourStepIndex, setTourStepIndex] = useState(0);
-  const [bothMenusOpened, setBothMenusOpened] = useState(false);
   const [firstTimeDepo, setFirstTimeDepo] = useState(
     localStorage.getItem("firstTimeDepo") !== "no"
-  );
-  const [closedDepos, setClosedDepos] = useState(() => {
-    const savedDepos = JSON.parse(localStorage.getItem("closedDepos")) || [];
-    return new Set(savedDepos);
-  });
-  const [closedRecords, setClosedRecords] = useState(() => {
-    const savedRecords =
-      JSON.parse(localStorage.getItem("closedRecords")) || [];
-    return new Set(savedRecords);
-  });
-  const [firstTimeRecord, setFirstTimeRecord] = useState(
-    localStorage.getItem("firstTimeRecord") !== "no"
   );
 
   const [open, setOpen] = useState(false);
@@ -93,65 +78,41 @@ const OfficeScreen = ({
   const steps = [
     {
       title: "Mapa e Testemunhas",
-      description:
-        "Veja onde tudo aconteceu e quem são os envolvidos. Abra o Mapa e em seguida as Testemunhas",
+      description: "Veja onde tudo aconteceu e quem são os envolvidos. Abra o Mapa e em seguida as Testemunhas",
       target: () => ref1.current,
-      nextButtonProps: { style: { display: "none" } },
-      prevButtonProps: { style: { display: "none" } },
+      nextButtonProps: { children: 'Próximo' },
     },
     {
       title: "Depoimentos",
-      description:
-        "Acesse todos os depoimentos colhidos durante a investigação, e em seguida as Fichas das Testemunhas.",
+      description: "Acesse todos os depoimentos colhidos durante a investigação, e em seguida as Fichas das Testemunhas.",
       target: () => ref2.current,
-      nextButtonProps: { style: { display: "none" } },
-      prevButtonProps: { style: { display: "none" } },
+      nextButtonProps: { children: 'Próximo' },
+      prevButtonProps: { children: 'Anterior' },
     },
     {
       title: "Fichas dos Envolvidos",
-      description:
-        "Confira todas as fichas detalhadas das testemunhas e da vítima.",
+      description: "Confira todas as fichas detalhadas das testemunhas e da vítima.",
       target: () => ref3.current,
-      nextButtonProps: { style: { display: "none" } },
-      prevButtonProps: { style: { display: "none" } },
+      nextButtonProps: { children: 'Próximo' },
+      prevButtonProps: { children: 'Anterior' },
     },
     {
       title: "Evidências",
-      description:
-        "Analise as evidências. Algumas serão analisadas no escritório de investigação criminal e outas no laboratório",
+      description: "Analise as evidências. Algumas serão analisadas no escritório de investigação criminal e outas no laboratório",
       target: () => ref4.current,
-      nextButtonProps: { style: { display: "none" } },
-      prevButtonProps: { style: { display: "none" } },
+      nextButtonProps: { children: 'Finalizar' },
+      prevButtonProps: { children: 'Anterior' },
     },
   ];
+  
 
   useEffect(() => {
     const isFirstTime = localStorage.getItem("firstTimeOffice") === null;
     if (isFirstTime) {
       localStorage.setItem("firstTimeOffice", "no");
-      setFirstTimeOffice(true);
       setIsFirstDialogVisible(true);
     }
   }, []);
-
-  const MapHandler = (item) => {
-    let mapItems = JSON.parse(localStorage.getItem("firstTimeMap")) || [];
-
-    if (!mapItems.includes(item)) {
-      mapItems.push(item);
-      localStorage.setItem("firstTimeMap", JSON.stringify(mapItems));
-    }
-
-    const hasMapAndWitness =
-      mapItems.includes("map") && mapItems.includes("witness");
-
-    if (hasMapAndWitness && !bothMenusOpened) {
-      setIsBlinkingRightBoard(true);
-      setBothMenusOpened(true);
-      setTourStepIndex(1);
-      setOpen(true);
-    }
-  };
 
   const handlePrints = () => {
     setShowOfficeScreen(!showOfficeScreen);
@@ -160,20 +121,20 @@ const OfficeScreen = ({
   const handlePrintsFinish = () => {
     setShowOfficeScreen(!showOfficeScreen);
     setShowPrintsScreen(!showPrintsScreen);
-    if(currentStage<1){
-    setCurrentStage(1)
-    setIsBlinkingEvidences(true)
-  };}
+    if (currentStage < 1) {
+      setCurrentStage(1);
+      setIsBlinkingEvidences(true);
+    }
+  };
   const handleDNA = () => {
     setShowOfficeScreen(!showOfficeScreen);
     setDnaScreen(!dnaScreen);
-
   };
   const handleDNAFinish = () => {
     setShowOfficeScreen(!showOfficeScreen);
     setDnaScreen(!dnaScreen);
-    if(currentStage<6){
-      setCurrentStage(6)
+    if (currentStage < 6) {
+      setCurrentStage(6);
       setIsOffice(false);
     }
   };
@@ -182,12 +143,6 @@ const OfficeScreen = ({
       setShowOfficeScreen(!showOfficeScreen);
     }
   }, [dnaScreen]);
-  useEffect(() => {
-    if (showPrintsScreen && !localStorageSet) {
-      localStorage.setItem("firstTimePrints", "yes");
-      setLocalStorageSet(true);
-    }
-  }, [localStorageSet, showPrintsScreen]);
 
   const menuOptionsLeftBoard = [
     {
@@ -293,66 +248,6 @@ const OfficeScreen = ({
       onClick: () => setIsMarkRecordVisible(true),
     },
   ];
-
-  const depoNames = [
-    "Andrey",
-    "Marieta",
-    "Gregorio",
-    "Chiara",
-    "Olegario",
-    "Geremias",
-  ];
-  const recordNames = [
-    "Andrey",
-    "Marieta",
-    "Gregorio",
-    "Chiara",
-    "Olegario",
-    "Mark",
-    "Geremias",
-  ];
-  const handleDepoClose = (depoName) => {
-    setClosedDepos((prevClosedDepos) => {
-      const updatedClosedDepos = new Set(prevClosedDepos);
-      updatedClosedDepos.add(depoName);
-
-      localStorage.setItem(
-        "closedDepos",
-        JSON.stringify([...updatedClosedDepos])
-      );
-      if (firstTimeDepo && updatedClosedDepos.size === depoNames.length) {
-        localStorage.setItem("firstTimeDepo", "no");
-        setFirstTimeDepo(false);
-        setTourStepIndex(2);
-        setIsBlinkingWitness(true);
-        setOpen(true);
-      }
-
-      return updatedClosedDepos;
-    });
-  };
-
-  const handleRecordClose = (recordName) => {
-    setClosedRecords((prevClosedRecords) => {
-      const updatedClosedRecords = new Set(prevClosedRecords);
-      updatedClosedRecords.add(recordName);
-
-      localStorage.setItem(
-        "closedRecords",
-        JSON.stringify([...updatedClosedRecords])
-      );
-
-      if (firstTimeRecord && updatedClosedRecords.size === recordNames.length) {
-        localStorage.setItem("firstTimeRecord", "no");
-        setFirstTimeRecord(false);
-        setTourStepIndex(3);
-        setIsBlinkingEvidences(true);
-        setOpen(true);
-      }
-
-      return updatedClosedRecords;
-    });
-  };
 
   const generatePopoverContent = (src, alt, isHovered, isBlinking) => (
     <img
@@ -521,7 +416,6 @@ const OfficeScreen = ({
               isVisible={isMapVisible}
               onClose={() => {
                 setIsMapVisible(false);
-                MapHandler("map");
               }}
               imageSrc={map}
             />
@@ -529,14 +423,12 @@ const OfficeScreen = ({
               isVisible={isWitnessResumeVisible}
               onClose={() => {
                 setIsWitnessResumeVisible(false);
-                MapHandler("witness");
               }}
               imageSrc={witnessResume}
             />
             <ImageModal
               isVisible={isAndreyDepoVisible}
               onClose={() => {
-                handleDepoClose("Andrey");
                 setIsAndreyDepoVisible(false);
               }}
               imageSrc={AndreyDepo}
@@ -544,7 +436,6 @@ const OfficeScreen = ({
             <ImageModal
               isVisible={isMarietaDepoVisible}
               onClose={() => {
-                handleDepoClose("Marieta");
                 setIsMarietaDepoVisible(false);
               }}
               imageSrc={MarietaDepo}
@@ -552,7 +443,6 @@ const OfficeScreen = ({
             <ImageModal
               isVisible={isGregorioDepoVisible}
               onClose={() => {
-                handleDepoClose("Gregorio");
                 setIsGregorioDepoVisible(false);
               }}
               imageSrc={GregorioDepo}
@@ -560,7 +450,6 @@ const OfficeScreen = ({
             <ImageModal
               isVisible={isChiaraDepoVisible}
               onClose={() => {
-                handleDepoClose("Chiara");
                 setIsChiaraDepoVisible(false);
               }}
               imageSrc={ChiaraDepo}
@@ -568,7 +457,6 @@ const OfficeScreen = ({
             <ImageModal
               isVisible={isOlegarioDepoVisible}
               onClose={() => {
-                handleDepoClose("Olegario");
                 setIsOlegarioDepoVisible(false);
               }}
               imageSrc={OlegarioDepo}
@@ -576,7 +464,6 @@ const OfficeScreen = ({
             <ImageModal
               isVisible={isGeremiasDepoVisible}
               onClose={() => {
-                handleDepoClose("Geremias");
                 setIsGeremiasDepoVisible(false);
               }}
               imageSrc={GeremiasDepo}
@@ -584,7 +471,6 @@ const OfficeScreen = ({
             <ImageModal
               isVisible={isAndreyRecordVisible}
               onClose={() => {
-                handleRecordClose("Andrey");
                 setIsAndreyRecordVisible(false);
               }}
               imageSrc={AndreyRecord}
@@ -593,7 +479,6 @@ const OfficeScreen = ({
             <ImageModal
               isVisible={isMarietaRecordVisible}
               onClose={() => {
-                handleRecordClose("Marieta");
                 setIsMarietaRecordVisible(false);
               }}
               imageSrc={MarietaRecord}
@@ -602,7 +487,6 @@ const OfficeScreen = ({
             <ImageModal
               isVisible={isGregorioRecordVisible}
               onClose={() => {
-                handleRecordClose("Gregorio");
                 setIsGregorioRecordVisible(false);
               }}
               imageSrc={GregorioRecord}
@@ -611,7 +495,6 @@ const OfficeScreen = ({
             <ImageModal
               isVisible={isChiaraRecordVisible}
               onClose={() => {
-                handleRecordClose("Chiara");
                 setIsChiaraRecordVisible(false);
               }}
               imageSrc={ChiaraRecord}
@@ -620,7 +503,6 @@ const OfficeScreen = ({
             <ImageModal
               isVisible={isOlegarioRecordVisible}
               onClose={() => {
-                handleRecordClose("Olegario");
                 setIsOlegarioRecordVisible(false);
               }}
               imageSrc={OlegarioRecord}
@@ -629,7 +511,6 @@ const OfficeScreen = ({
             <ImageModal
               isVisible={isMarkRecordVisible}
               onClose={() => {
-                handleRecordClose("Mark");
                 setIsMarkRecordVisible(false);
               }}
               imageSrc={MarkRecord}
@@ -638,17 +519,14 @@ const OfficeScreen = ({
             <ImageModal
               isVisible={isGeremiasRecordVisible}
               onClose={() => {
-                handleRecordClose("Geremias");
                 setIsGeremiasRecordVisible(false);
               }}
               imageSrc={GeremiasRecord}
             />
-
             <ImageModal
               isVisible={isFirstImageVisible}
               onClose={() => {
                 setIsFirstImageVisible(false);
-                setIsBlinkingMap(true);
                 setOpen(true);
               }}
               imageSrc={FirstImage}
@@ -657,9 +535,11 @@ const OfficeScreen = ({
               open={open}
               onClose={() => {
                 setOpen(false);
+                setIsBlinkingMap(true);
               }}
               steps={steps}
-              current={tourStepIndex}
+              maskClosable = {false}
+              closable={false}
             />
             <ModalButtons
               textConfirm="Próximo"
@@ -763,8 +643,15 @@ const OfficeScreen = ({
           </div>
         </>
       )}
-      {showPrintsScreen && <PrintsScreen handlePrints={handlePrints} handlePrintsFinish={handlePrintsFinish} />}
-      {dnaScreen && <DNAScreen handleDNAFinish={handleDNAFinish} handleDNA={handleDNA} />}
+      {showPrintsScreen && (
+        <PrintsScreen
+          handlePrints={handlePrints}
+          handlePrintsFinish={handlePrintsFinish}
+        />
+      )}
+      {dnaScreen && (
+        <DNAScreen handleDNAFinish={handleDNAFinish} handleDNA={handleDNA} />
+      )}
     </>
   );
 };

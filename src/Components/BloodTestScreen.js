@@ -1,16 +1,17 @@
 import bloodTest_background from "../assets/bloodTest_background.png";
-import micro from "../assets/micro.svg";
 import cursor_image from "../assets/cursor_image.png";
 import image1 from "../assets/image1.svg";
 import image2 from "../assets/image2.svg";
 import ModalButtons from "./ModalButtons";
+import MarkRecord from "../assets/mark_record.svg";
 import { useEffect, useState } from "react";
 import ImageModal from "./ImageModal";
 import BloodTest from "./BloodTest";
 import "../App.css";
-import { Button } from "antd";
+import { Button, Select } from "antd";
 
-const BloodTestScreen = ({ setShowBloodTestScreen }) => {
+
+const BloodTestScreen = ({ setShowBloodTestScreen, handleBloodTestFinish }) => {
   const [bloodType, setBloodType] = useState(
     localStorage.getItem("bloodType") || null
   );
@@ -20,25 +21,33 @@ const BloodTestScreen = ({ setShowBloodTestScreen }) => {
   const [showSecondDialog, setShowSecondDialog] = useState(false);
   const [showImage1, setShowImage1] = useState(false);
   const [showImage2, setShowImage2] = useState(false);
+  const [showQuestion, setShowQuestion] = useState(false);
   const [validationMessage, setValidationMessage] = useState(
     localStorage.getItem("validationBloodMessage") || null
   );
-  const [circle1Clicked, setCircle1Clicked] = useState(false);
-  const [circle2Clicked, setCircle2Clicked] = useState(false);
-  const [circle3Clicked, setCircle3Clicked] = useState(false);
+  const [circle1Clicked, setCircle1Clicked] = useState(localStorage.getItem("circle1Clicked") === "true");
+  const [circle2Clicked, setCircle2Clicked] = useState(localStorage.getItem("circle2Clicked") === "true");
+  const [circle3Clicked, setCircle3Clicked] = useState(localStorage.getItem("circle3Clicked") === "true");
+
 
   useEffect(() => {
     if (circle1Clicked && circle2Clicked && circle3Clicked) {
       setShowCustomCursor(false);
     }
-  }, [circle1Clicked, circle2Clicked, circle3Clicked]);
+    else
+      setShowCustomCursor(true);
+  }, [showBloodTest, circle1Clicked, circle2Clicked, circle3Clicked]);
 
-  useEffect(() => {
-    setShowCustomCursor(showBloodTest);
-  }, [showBloodTest]);
+  
   useEffect(() => {
     localStorage.setItem("validationBloodMessage",validationMessage)
   }, [validationMessage]);
+
+  useEffect(() => {
+    localStorage.setItem("circle1Clicked", circle1Clicked);
+    localStorage.setItem("circle2Clicked", circle2Clicked);
+    localStorage.setItem("circle3Clicked", circle3Clicked);
+  }, [circle1Clicked, circle2Clicked, circle3Clicked]);
 
   return (
     <>
@@ -80,6 +89,9 @@ const BloodTestScreen = ({ setShowBloodTestScreen }) => {
               bloodType={bloodType}
               setBloodType={setBloodType}
               validationMessage={validationMessage}
+              circle1Clicked={circle1Clicked}
+              circle2Clicked={circle2Clicked}
+              circle3Clicked={circle3Clicked}
               setValidationMessage={setValidationMessage}
               setCircle1Clicked={setCircle1Clicked}
               setCircle2Clicked={setCircle2Clicked}
@@ -111,12 +123,18 @@ const BloodTestScreen = ({ setShowBloodTestScreen }) => {
                 gap: 20,
               }}
             >
-              
+            <Button
+                onClick={() => setShowQuestion(true)}
+                style={{ width: "30%", minHeight: 40 }}
+                className="btnConfirmLab"
+                disabled={validationMessage === "Correto" ? false : true}
+              >
+                VERIFICAÇÃO FINAL
+              </Button>
               <Button
                 onClick={() => setShowBloodTestScreen(false)}
                 style={{ width: "30%", minHeight: 40 }}
                 className="btnConfirmLab"
-                disabled={validationMessage === "Correto" ? false : true}
               >
                 Ir para o Laboratório
               </Button>
@@ -124,6 +142,25 @@ const BloodTestScreen = ({ setShowBloodTestScreen }) => {
           </div>
         )}
       </div>
+      <ModalButtons
+        textCancel=""
+        textConfirm="Ir para o Laboratório"
+        message={
+          <div style={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
+          <p>Sendo B-, podemos concluir que o sangue presente no caco de vidro é de Mark</p>
+          <img style={{width:"160%"}} src={MarkRecord}></img>
+          </div>
+        }
+        onConfirm={() => {
+          setShowBloodTestScreen(false);
+          handleBloodTestFinish()
+        }}
+        show={showQuestion}
+        closable
+        onCancel={() => {
+          setShowQuestion(false);
+        }}
+      />
       <ModalButtons
         textCancel=""
         textConfirm="Próximo"

@@ -89,7 +89,7 @@ const LabScreen = ({
   const handleMicro3Finish = () => {
     setShowMicroScreen3(false);
     setShowLabScreen(true);
-    if (currentStage < 8) {
+    if (currentStage < 10) {
       setCurrentStage(10);
       setShowFirstDialog(true);
     }
@@ -115,6 +115,10 @@ const LabScreen = ({
   const handleBloodTestClick = () => {
     setShowBloodTest(true);
     setShowLabScreen(false);
+  };
+  const handleBloodTestFinish= () => {
+    setShowBloodTest(false);
+    setShowLabScreen(true);
     if (currentStage < 4) {
       setCurrentStage(4);
       setIsBlinkingMicro(true);
@@ -384,7 +388,7 @@ const LabScreen = ({
         />
       )}
       {showBloodTest && (
-        <BloodTestScreen setShowBloodTestScreen={setShowBloodTest} />
+        <BloodTestScreen handleBloodTestFinish={handleBloodTestFinish}setShowBloodTestScreen={setShowBloodTest} />
       )}
     </>
   );

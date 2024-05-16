@@ -147,7 +147,7 @@ const DNAScreen = ({ handleDNA, handleDNAFinish }) => {
                 alignItems: "end",
               }}
             >
-              <img style={{ width: "100%" }} src={image1} alt="Digitais" />
+              <img style={{ width: "80%", marginRight:"10%", marginBottom:"5%", marginTop:"5%" }} src={image1} alt="Digitais" />
               <div
                 style={{
                   width: "80%",
