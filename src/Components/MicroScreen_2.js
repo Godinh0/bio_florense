@@ -312,7 +312,7 @@ const MicroScreen_2 = ({setShowMicroScreen, handleMicro2Finish}) => {
         textCancel="Voltar"
         textConfirm="Próximo"
         message="Vamos analisar no microscópio óptico a amostra de água coletada no Rio Manso 
-        e em microscópio eletrônico a amostra coletada no poço artessiano, em seguida, comparar 
+        e em microscópio eletrônico a amostra coletada no poço artesiano, em seguida, comparar 
         o que é possível observar no microscópio com a informações presentes no laudo da análise 
         microbiológica da água para obtermos uma conclusão. "
         onBack={() => {
