@@ -160,12 +160,14 @@ const DNAScreen = ({ handleDNA, handleDNAFinish }) => {
                 <Button
                   onClick={() => setShowQuestion(true)}
                   style={{ width: "30%", minHeight: 40 }}
+                  className="btnConfirmLab"
                 >
                   VERIFICAÇÃO FINAL
                 </Button>
                 <Button
                   onClick={handleDNA}
                   style={{ width: "30%", minHeight: 40 }}
+                  className="btnConfirmLab"
                 >
                   VOLTAR
                 </Button>

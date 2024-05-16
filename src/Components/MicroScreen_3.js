@@ -250,12 +250,14 @@ const MicroScreen_3 = ({setShowMicroScreen, handleMicro3Finish}) => {
                 <Button
                   onClick={() => setShowQuestion(true)}
                   style={{ width: "30%", minHeight: 40 }}
+                  className="btnConfirmLab"
                 >
                   VERIFICAÇÃO FINAL
                 </Button>
                 <Button
                   onClick={() => setShowMicroScreen(false)}
                   style={{ width: "30%", minHeight: 40 }}
+                  className="btnConfirmLab"
                 >
                   VOLTAR
                 </Button>
@@ -377,7 +379,7 @@ const MicroScreen_3 = ({setShowMicroScreen, handleMicro3Finish}) => {
         isso é uma grave falha técnica! Precisamos obervar a organização histológica descrita 
         no exame anatomopatológico fornecido e comparar com as lâminas que fizemos para 
         identificarmos a qual órgão de Mark cada lâmina pertence. "
-        
+
         onConfirm={() => {
           setShowFirstDialog(false);
           setShowSecondDialog(true);

@@ -251,12 +251,14 @@ const MicroScreen_4 = ({setShowMicroScreen, handleMicro4Finish}) => {
                 <Button
                   onClick={() => setShowQuestion(true)}
                   style={{ width: "30%", minHeight: 40 }}
+                  className="btnConfirmLab"
                 >
                   VERIFICAÇÃO FINAL
                 </Button>
                 <Button
                   onClick={() => setShowMicroScreen(false)}
                   style={{ width: "30%", minHeight: 40 }}
+                  className="btnConfirmLab"
                 >
                   VOLTAR
                 </Button>
