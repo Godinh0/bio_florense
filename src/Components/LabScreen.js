@@ -43,6 +43,15 @@ const LabScreen = ({
   const [isExameAnatoVisible, setIsExameAnatoVisible] = useState(false);
 
   useEffect(() => {
+    if (currentStage===1) {
+        setIsBlinkingMicro(true)
+    }
+    if (currentStage===6) {
+      setIsBlinkingMicro(true)
+      setIsBlinkingResults(true)
+  }
+  }, [currentStage]);
+  useEffect(() => {
     if (
       showMicroScreen1 === false &&
       showMicroScreen2 === false &&
@@ -166,7 +175,7 @@ const LabScreen = ({
     {
       title: "Análise microbiológica da água",
       onClick: handleAmostraAguaClick,
-      disabled: currentStage < 7 ? true : false,
+      disabled: currentStage < 6 ? true : false,
     },
     {
       title: "Histologia dos órgãos da vítima",

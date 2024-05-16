@@ -403,7 +403,7 @@ const setValidationAndStore = (key, value) => {
               gap: 20,
             }}
           >
-            <p>D) Cômodo</p>
+            <p>D) Cômoda</p>
             <Select
               value={answer_D}
               style={{ minWidth: "25%" }}

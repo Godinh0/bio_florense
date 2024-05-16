@@ -98,7 +98,7 @@ const OfficeScreen = ({
     },
     {
       title: "Evidências",
-      description: "Analise as evidências. Algumas serão analisadas no escritório de investigação criminal e outas no laboratório",
+      description: "Analise as evidências. Algumas serão analisadas no escritório de investigação criminal e outras no laboratório",
       target: () => ref4.current,
       nextButtonProps: { children: 'Finalizar' },
       prevButtonProps: { children: 'Anterior' },
@@ -587,7 +587,7 @@ const OfficeScreen = ({
                     }}
                   >
                     <p>
-                      Nessa jornada você precisará, primeiramente no escritório
+                      Nessa jornada você precisará primeiramente, no escritório
                       de investigação criminal, abrir o mapa do local onde o
                       corpo da vítima foi encontrado e analisar as testemunhas e
                       seus depoimentos. Em sequência, poderá iniciar as análises
