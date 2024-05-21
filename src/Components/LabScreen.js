@@ -98,8 +98,10 @@ const LabScreen = ({
   const handleMicro3Finish = () => {
     setShowMicroScreen3(false);
     setShowLabScreen(true);
+    if (currentStage < 10) {
       setCurrentStage(10);
       setShowQuestion(true);
+    }
   };
   const handleAmostraOrgaoClick = () => {
     setShowMicroScreen3(true);

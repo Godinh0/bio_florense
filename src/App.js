@@ -92,7 +92,8 @@ const App = () => {
         unclosable
         noExam
         textConfirm="Confirmar"
-        message="A sequência de nucleotídeos corresponde ao fio de cabelo de:"
+        message={<p style={{textAlign:"justify"}}>Chegou o momento mais esperado, perito! Após investigar e 
+        analisar as evidências, qual é a causa da morte de Mark?</p>}
         onConfirm={() => {
           setShowQuestion(false);
           setShowFirstDialog(true);
@@ -172,10 +173,10 @@ const App = () => {
         textConfirm=""
         message={
           <p>
-            Autores:
+            Créditos:
             <br />
             <br />
-            Educadora Melissa Spíndola Estevam
+            Autoria: Melissa Spíndola Estevam
             <br />
             Emails:
             <br />
@@ -194,7 +195,7 @@ const App = () => {
             </a>
             <br />
             <br />
-            Programador Gabriel Godinho Ferreira
+            Programação: Gabriel Godinho Ferreira
             <br />
             Emails: <br />
             <a
@@ -214,7 +215,7 @@ const App = () => {
             </a>
             <br />
             <br />
-            Profa. Dra. Flavia Sant’Anna Rios
+            Orientação: Profa. Dra. Flavia Sant’Anna Rios
             <br />
             Emails: <br />
             <a
@@ -274,7 +275,7 @@ const App = () => {
         onClick={() => setShowAuthorsDialog(true)}
         icon={<InfoCircleOutlined />}
       >
-        Autores
+        Créditos
       </Button>
       <Button
         style={{
