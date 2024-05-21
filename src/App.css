@@ -121,6 +121,9 @@ body {
 .modalButtons.ant-modal {
   left: 200px;
 }
+.transparentModal .ant-modal {
+  right: 400px;
+}
 
 @keyframes blink {
   0%, 100% {

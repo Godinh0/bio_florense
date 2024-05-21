@@ -9,6 +9,7 @@ const ModalQuestion = ({
   show,
   children,
   noExam,
+  unclosable
 }) => {
   return (
     <>
@@ -18,6 +19,7 @@ const ModalQuestion = ({
         open={show}
         onCancel={onCancel ? onCancel : () => {}}
         footer={null}
+        closable={unclosable?false:true}
       >
         {message}
         {children}

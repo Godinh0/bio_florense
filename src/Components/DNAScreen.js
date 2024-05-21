@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import evidence_background from "../assets/evidence_background.png";
-import image1 from "../assets/dnaimage.png";
+import image1 from "../assets/dna_image.png";
 import dna_perfil from "../assets/dna_perfil.svg";
 import ModalButtons from "./ModalButtons";
 import AndreyRecord from "../assets/andrey_record.svg";
@@ -231,9 +231,9 @@ const DNAScreen = ({ handleDNA, handleDNAFinish }) => {
       <ModalButtons
         textCancel=""
         textConfirm="Próximo"
-        message="Para saber a quem pertence o fio de cabelo humano, é necessário efetuar uma análise do DNA 
-        presente na raiz do fio. O DNA é constituído por proteínas chamadas bases nitrogenadas. Cada uma delas 
-        carrega o menor pedacinho possível de informação genética. "
+        message={<p style={{textAlign:"justify"}}>Para saber a quem pertence o fio de cabelo humano, é necessário efetuar uma análise do DNA 
+        presente na raiz do fio. O DNA é constituído por bases nitrogenadas. Cada uma delas 
+        carrega o menor pedacinho possível de informação genética.</p>}
         onConfirm={() => {
           setShowFirstDialog(false);
           setShowImage1(true);

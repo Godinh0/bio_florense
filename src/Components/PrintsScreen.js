@@ -251,37 +251,20 @@ const setValidationAndStore = (key, value) => {
       <ModalButtons
         textCancel=""
         textConfirm="Próximo"
-        message="Olá perito! Primeiramente, para analisarmos as digitais, 
-        vamos observar os locais em que foram coletadas. Na lateral esquerda 
-        você encontrará as fichas dos envolvidos para 
-        efetuarmos a comparação das digitais "
+        message={<p style={{textAlign:"justify"}}>Olá perito! Para analisarmos as Impressões Digitais, vamos observar os locais em 
+        que foram coletadas. Na lateral esquerda, você encontrará as fichas dos envolvidos para 
+        compararmos com as   digitais encontradas próximo à vítima. 
+        Feita a comparação,confira as digitais correspondentes a cada local na VERIFICAÇÃO FINAL
+        </p>}
         onConfirm={() => {
           setShowFirstDialog(false);
-          setShowSecondDialog(true);
+          setShowImage1(true);
         }}
         onCancel={() => {
           handlePrints();
         }}
         closable
         show={showFirstDialog}
-      />
-      <ModalButtons
-        textCancel="Voltar"
-        textConfirm="Próximo"
-        message="Feita a comparação,iremos conferir as digitais correspondentes à cada local na VERIFICAÇÃO FINAL"
-        onBack={() => {
-          setShowFirstDialog(true);
-          setShowSecondDialog(false);
-        }}
-        onConfirm={() => {
-          setShowSecondDialog(false);
-          setShowImage1(true);
-        }}
-        show={showSecondDialog}
-        onCancel={() => {
-          handlePrints();
-        }}
-        closable
       />
       <ModalQuestion
         textConfirm="Ir para o Escritório"
@@ -460,6 +443,7 @@ const setValidationAndStore = (key, value) => {
         </div>
       </ModalQuestion>
       <ImageModal
+      digital
         isVisible={isAndreyRecordVisible}
         onClose={() => {
           setIsAndreyRecordVisible(false);
@@ -468,6 +452,7 @@ const setValidationAndStore = (key, value) => {
       />
 
       <ImageModal
+      digital
         isVisible={isMarietaRecordVisible}
         onClose={() => {
           setIsMarietaRecordVisible(false);
@@ -476,6 +461,7 @@ const setValidationAndStore = (key, value) => {
       />
 
       <ImageModal
+      digital
         isVisible={isGregorioRecordVisible}
         onClose={() => {
           setIsGregorioRecordVisible(false);
@@ -484,6 +470,7 @@ const setValidationAndStore = (key, value) => {
       />
 
       <ImageModal
+      digital
         isVisible={isChiaraRecordVisible}
         onClose={() => {
           setIsChiaraRecordVisible(false);
@@ -492,6 +479,7 @@ const setValidationAndStore = (key, value) => {
       />
 
       <ImageModal
+      digital
         isVisible={isOlegarioRecordVisible}
         onClose={() => {
           setIsOlegarioRecordVisible(false);
@@ -500,6 +488,7 @@ const setValidationAndStore = (key, value) => {
       />
 
       <ImageModal
+      digital
         isVisible={isMarkRecordVisible}
         onClose={() => {
           setIsMarkRecordVisible(false);
@@ -508,6 +497,7 @@ const setValidationAndStore = (key, value) => {
       />
 
       <ImageModal
+      digital
         isVisible={isGeremiasRecordVisible}
         onClose={() => {
           setIsGeremiasRecordVisible(false);

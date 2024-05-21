@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import OfficeScreen from "./Components/OfficeScreen";
 import LabScreen from "./Components/LabScreen";
-import { Button } from "antd";
+import { Button, Radio } from "antd";
 import {
   ArrowRightOutlined,
   ArrowLeftOutlined,
@@ -11,11 +11,13 @@ import {
 } from "@ant-design/icons";
 import Confetti from "react-confetti";
 import ModalButtons from "./Components/ModalButtons";
+import ModalQuestion from "./Components/ModalQuestion";
 
 const App = () => {
   const [isOffice, setIsOffice] = useState(true);
   const [microScreen, setMicroScreen] = useState("");
   const [dnaScreen, setDnaScreen] = useState(false);
+  const [showQuestion, setShowQuestion] = useState(false);
   const [showFirstDialog, setShowFirstDialog] = useState(false);
   const [showSecondDialog, setShowSecondDialog] = useState(false);
   const [showResetDialog, setShowResetDialog] = useState(false);
@@ -23,6 +25,29 @@ const App = () => {
   const [currentStage, setCurrentStage] = useState(
     localStorage.getItem("currentStage") || 0
   );
+  const [validationMessage_A, setValidationMessage_A] = useState(
+    localStorage.getItem("validationFinalMessage_A") || null
+  );
+  const [selectedOption, setSelectedOption] = useState("");
+
+  const options = [
+    "1) Foi assassinado com golpes de faca por Andrey",
+    "2) Foi envenenado por Chiara",
+    "3) Feriu-se fatalmente em uma briga com Gregório",
+    "4) Foi contaminado com um protozoário que afetou seu cérebro",
+  ];
+
+  useEffect(() => {
+    const isCorrect =
+      selectedOption ===
+      "4) Foi contaminado com um protozoário que afetou seu cérebro";
+    if (isCorrect) {
+      setValidationMessage_A("Correto");
+    } else {
+      setValidationMessage_A("Incorreto");
+    }
+    localStorage.setItem("AnswerFinal_A", selectedOption);
+  }, [selectedOption]);
 
   const handleClick = () => {
     setIsOffice(!isOffice);
@@ -39,42 +64,79 @@ const App = () => {
   }, [currentStage]);
 
   const copyToClipboard = (email, event) => {
-    event.preventDefault(); // Impede que o navegador tente abrir o link
-    navigator.clipboard.writeText(email).then(() => {
-      alert(`${email} copiado para a área de transferência!`); // Feedback opcional
-    }).catch(err => {
-      console.error('Falha ao copiar e-mail: ', err);
-    });
+    event.preventDefault();
+    navigator.clipboard
+      .writeText(email)
+      .then(() => {
+        alert(`${email} copiado para a área de transferência!`);
+      })
+      .catch((err) => {
+        console.error("Falha ao copiar e-mail: ", err);
+      });
   };
+
   return (
     <div style={{ position: "relative" }}>
-      {currentStage === 10 && <Confetti numberOfPieces={200} />}
+      {currentStage === 11 && <Confetti numberOfPieces={200} />}
       <ModalButtons
         textCancel="Cancelar"
         textConfirm="Reiniciar"
         message="Tem certeza que deseja Reiniciar? Você perderá todo o seu progresso!"
-        onBack={() => {
-          setShowResetDialog(false);
-        }}
-        onConfirm={() => {
-          handleReset();
-        }}
-        onCancel={() => {
-          setShowResetDialog(false);
-        }}
+        onBack={() => setShowResetDialog(false)}
+        onConfirm={handleReset}
+        onCancel={() => setShowResetDialog(false)}
         show={showResetDialog}
         closable
       />
+      <ModalQuestion
+        unclosable
+        noExam
+        textConfirm="Confirmar"
+        message="A sequência de nucleotídeos corresponde ao fio de cabelo de:"
+        onConfirm={() => {
+          setShowQuestion(false);
+          setShowFirstDialog(true);
+          setCurrentStage(11)
+        }}
+        show={showQuestion}
+        onCancel={() => setShowQuestion(false)}
+        correctAnswer={
+          selectedOption ===
+          "4) Foi contaminado com um protozoário que afetou seu cérebro"
+        }
+      >
+        <Radio.Group
+          onChange={(e) => setSelectedOption(e.target.value)}
+          value={selectedOption}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+            gap: 10,
+          }}
+        >
+          {options.map((option, index) => (
+            <Radio key={index} value={option} style={{ whiteSpace: "nowrap" }}>
+              {option}
+            </Radio>
+          ))}
+        </Radio.Group>
+        <p
+          style={{ color: validationMessage_A === "Correto" ? "green" : "red" }}
+        >
+          {validationMessage_A}
+        </p>
+      </ModalQuestion>
       <ModalButtons
         textCancel=""
         textConfirm="Próximo"
-        message="Parabéns pelo trabalho, Perito! 
+        message={<p style={{textAlign:"justify"}}>Parabéns pelo trabalho, Perito! 
         Com base em todas as análises realizadas e diagnósticos obtidos, 
         concluímos que a morte de Mark foi causada pela presença de um Protozoário 
         no cérebro, causando focos de hemorragia e necrose, além de inflamações no córtex frontal. 
         Essa grave infecção originou-se após o contato de Mark no Rio Manso em seu primeiro dia no Hotel, 
         que de acordo com a Análise Microbiológica da Água, foi possível obtermos a confirmação da presença 
-        de organismos eucariontes de vida livre (Protozoário Ameba) no local."
+        de organismos eucariontes de vida livre (Protozoário Ameba) no local.</p>}
         onConfirm={() => {
           setShowFirstDialog(false);
           setShowSecondDialog(true);
@@ -88,9 +150,9 @@ const App = () => {
       <ModalButtons
         textCancel="Voltar"
         textConfirm="Próximo"
-        message="Quando essa Ameba entra no corpo humano, geralmente pelo nariz, se desloca até o cérebro, 
+        message={<p style={{textAlign:"justify"}}>Quando essa Ameba entra no corpo humano, geralmente pelo nariz, se desloca até o cérebro, 
         causando a inflamação e, em poucos dias, a morte. É importante ressaltar que essa é uma situação 
-        incomum e que a infecção pela ameba Naegleria fowleri é extremamente rara!"
+        incomum e que a infecção pela ameba Naegleria fowleri é extremamente rara!</p>}
         onBack={() => {
           setShowFirstDialog(true);
           setShowSecondDialog(false);
@@ -111,31 +173,65 @@ const App = () => {
         message={
           <p>
             Autores:
-            <br /><br />
+            <br />
+            <br />
             Educadora Melissa Spíndola Estevam
             <br />
-            Emails:<br />
-            <a href="#" onClick={(e) => copyToClipboard("melissa.estevam@ufpr.br", e)}>melissa.estevam@ufpr.br</a>
+            Emails:
             <br />
-            <a href="#" onClick={(e) => copyToClipboard("melissa.s.estevam@gmail.com", e)}>melissa.s.estevam@gmail.com</a>
-            <br /><br />
+            <a
+              href="#"
+              onClick={(e) => copyToClipboard("melissa.estevam@ufpr.br", e)}
+            >
+              melissa.estevam@ufpr.br
+            </a>
+            <br />
+            <a
+              href="#"
+              onClick={(e) => copyToClipboard("melissa.s.estevam@gmail.com", e)}
+            >
+              melissa.s.estevam@gmail.com
+            </a>
+            <br />
+            <br />
             Programador Gabriel Godinho Ferreira
             <br />
             Emails: <br />
-            <a href="#" onClick={(e) => copyToClipboard("gabrielgodinho014@gmail.com", e)}>gabrielgodinho014@gmail.com</a>
+            <a
+              href="#"
+              onClick={(e) => copyToClipboard("gabrielgodinho014@gmail.com", e)}
+            >
+              gabrielgodinho014@gmail.com
+            </a>
             <br />
-            <a href="#" onClick={(e) => copyToClipboard("gabriel.ferreira4@pucpr.edu.br", e)}>gabriel.ferreira4@pucpr.edu.br</a>
-            <br /><br />
-            Profa. Dra. Flavia Sant’Anna Rios 
+            <a
+              href="#"
+              onClick={(e) =>
+                copyToClipboard("gabriel.ferreira4@pucpr.edu.br", e)
+              }
+            >
+              gabriel.ferreira4@pucpr.edu.br
+            </a>
+            <br />
+            <br />
+            Profa. Dra. Flavia Sant’Anna Rios
             <br />
             Emails: <br />
-            <a href="#" onClick={(e) => copyToClipboard("flaviasrios@ufpr.br", e)}>flaviasrios@ufpr.br</a>
+            <a
+              href="#"
+              onClick={(e) => copyToClipboard("flaviasrios@ufpr.br", e)}
+            >
+              flaviasrios@ufpr.br
+            </a>
             <br />
-            <a href="#" onClick={(e) => copyToClipboard("flaviasrios@gmail.com", e)}>flaviasrios@gmail.com</a>
+            <a
+              href="#"
+              onClick={(e) => copyToClipboard("flaviasrios@gmail.com", e)}
+            >
+              flaviasrios@gmail.com
+            </a>
           </p>
         }
-        
-        
         onCancel={() => {
           setShowAuthorsDialog(false);
         }}
@@ -217,7 +313,7 @@ const App = () => {
             setIsOffice={setIsOffice}
             microScreen={microScreen}
             setMicroScreen={setMicroScreen}
-            setShowFirstDialog={setShowFirstDialog}
+            setShowQuestion={setShowQuestion}
           />
         )}
       </div>

@@ -65,14 +65,14 @@ const MicroScreen_3 = ({setShowMicroScreen, handleMicro3Finish}) => {
   };
 
   const onChange_A = (value) => {
-    const msg = value === "Coração" ? "Correto" : "Incorreto";
+    const msg = value === "Fígado" ? "Correto" : "Incorreto";
     setValidationAndStore("validationMicro3Message_A", msg);
     setAnswer_A(value);
     localStorage.setItem("AnswerMicro3_A", value);
   };
 
   const onChange_B = (value) => {
-    const msg = value === "Fígado" ? "Correto" : "Incorreto";
+    const msg = value === "Coração" ? "Correto" : "Incorreto";
     setValidationAndStore("validationMicro3Message_B", msg);
     setAnswer_B(value);
     localStorage.setItem("AnswerMicro3_B", value);
@@ -129,7 +129,7 @@ const MicroScreen_3 = ({setShowMicroScreen, handleMicro3Finish}) => {
         {showLaminas && (
           <>
             <div
-              onClick={() => setShowImage1(true)}
+              onClick={() => setShowImage2(true)}
               onMouseEnter={() => setHoveredLamina1(true)}
               onMouseLeave={() => setHoveredLamina1(false)}
               style={{
@@ -161,7 +161,7 @@ const MicroScreen_3 = ({setShowMicroScreen, handleMicro3Finish}) => {
               <div style={{ color: "white" }}>ÓRGÃO 1</div>
             </div>
             <div
-              onClick={() => setShowImage2(true)}
+              onClick={() => setShowImage1(true)}
               onMouseEnter={() => setHoveredLamina2(true)}
               onMouseLeave={() => setHoveredLamina2(false)}
               style={{
@@ -374,11 +374,11 @@ const MicroScreen_3 = ({setShowMicroScreen, handleMicro3Finish}) => {
       <ModalButtons
         textCancel=""
         textConfirm="Próximo"
-        message="OH NÃO! Amostras de órgãos do corpo de Mark foram coletadas, 
-        porém, não foram corretamente identificadas por outro biólogo aqui do laboratório, 
-        isso é uma grave falha técnica! Precisamos obervar a organização histológica descrita 
-        no exame anatomopatológico fornecido e comparar com as lâminas que fizemos para 
-        identificarmos a qual órgão de Mark cada lâmina pertence. "
+        message={<p style={{textAlign:"justify"}}>OH NÃO! Amostras de órgãos do corpo de Mark foram coletadas, porém, não foram 
+        corretamente identificadas por outro biólogo aqui do laboratório. Isso é uma grave 
+        falha técnica! Para identificarmos a qual órgão de Mark cada lâmina pertence, precisamos 
+        observar a organização histológica descrita no exame anatomopatológico 
+        e comparar com outras lâminas conhecidas. </p>}
 
         onConfirm={() => {
           setShowFirstDialog(false);
@@ -393,11 +393,11 @@ const MicroScreen_3 = ({setShowMicroScreen, handleMicro3Finish}) => {
       <ModalButtons
         textCancel="Voltar"
         textConfirm="Próximo"
-        message="Antes, precisamos saber que o coração é um órgão formado, principalmente, 
-        por tecido muscular estriado cardíaco, o qual se caracteriza por apresentar células 
+        message={<p style={{textAlign:"justify"}}>Antes, precisamos saber que o coração é um órgão formado, principalmente, 
+        por tecido muscular estriado cardíaco, que se caracteriza por apresentar células 
         musculares. O fígado é um órgão formado por células epitelias globosas organizadas em 
         fileiras (cordões). Já o cérebro, é um órgão que compõe o sistema nervoso central, apresentando 
-        tecido nervoso com células neuronais capazes de conduzir os impulsos nervosos."
+        tecido nervoso com neurônios capazes de conduzir os impulsos nervosos.</p>}
         onBack={() => {
           setShowFirstDialog(true);
           setShowSecondDialog(false);

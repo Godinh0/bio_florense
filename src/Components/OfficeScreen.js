@@ -160,7 +160,7 @@ const OfficeScreen = ({
   ];
   const menuOptionsEvidences = [
     {
-      title: "Digitais (análise no escritório)",
+      title: "Impressões digitais (análise no escritório)",
       onClick: handlePrints,
     },
     {
@@ -557,7 +557,7 @@ const OfficeScreen = ({
                       Bem-vindo ao Laboratório Virtual de Investigação Criminal!
                       Você está prestes a entrar na pele de um perito forense,
                       utilizando seus conhecimentos em ciências da natureza para
-                      desvendar os mistérios por trás de uma cena de crime. Sua
+                      desvendar os mistérios por trás de uma cena de um suposto crime. Sua
                       missão é analisar evidências, realizar experimentos e
                       seguir pistas para descobrir a verdade por trás da morte
                       da vítima. Prepare-se para uma jornada desafiadora e
@@ -587,15 +587,13 @@ const OfficeScreen = ({
                     }}
                   >
                     <p>
-                      Nessa jornada você precisará primeiramente, no escritório
-                      de investigação criminal, abrir o mapa do local onde o
-                      corpo da vítima foi encontrado e analisar as testemunhas e
-                      seus depoimentos. Em sequência, poderá iniciar as análises
-                      das evidências. Já estará disponível para visualização o
-                      exame necroscrópico, contendo informações sobre o cadáver
-                      de forma detalhada. Conforme as evidências forem sendo
-                      analisadas por você, mais exames serão liberados para que
-                      possa obter mais informações.
+                    Para começar essa jornada,  você precisará ir até o escritório de 
+                    investigação criminal, abrir o mapa do local onde o corpo da vítima foi 
+                    encontrado e analisar os depoimentos das testemunhas. Depois, poderá iniciar 
+                    as análises das evidências encontradas. Já estará disponível NO LABORATÓRIO o 
+                    exame necroscrópico, contendo informações sobre o cadáver de forma detalhada.
+                    À medida que você analisar as evidências, os resultados de mais exames serão 
+                    liberados e, assim, você terá mais informações.
                     </p>
                   </div>
                 </>
@@ -624,7 +622,7 @@ const OfficeScreen = ({
                     }}
                   >
                     <p>
-                      Para prosseguirmos, vamos entender o que aconteceu e em
+                      Para prosseguirmos, vamos entender o que aconteceu e, em
                       seguida, poderemos iniciar as investigações!
                     </p>
                   </div>

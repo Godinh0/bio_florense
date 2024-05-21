@@ -34,7 +34,7 @@ const MicroScreen_2 = ({setShowMicroScreen, handleMicro2Finish}) => {
 
   const options = [
     { name: "Protozoário" },
-    { name: "Vírus" }
+    { name: "Bactéria" }
   ];
 
   const setValidationAndStore = (key, value) => {
@@ -59,7 +59,7 @@ const MicroScreen_2 = ({setShowMicroScreen, handleMicro2Finish}) => {
   };
 
   const onChange_B = (value) => {
-    const msg = value === "Vírus" ? "Correto" : "Incorreto";
+    const msg = value === "Bactéria" ? "Correto" : "Incorreto";
     setValidationAndStore("validationMicro2Message_B", msg);
     setAnswer_B(value);
     localStorage.setItem("AnswerMicro2_B", value);
@@ -294,10 +294,10 @@ const MicroScreen_2 = ({setShowMicroScreen, handleMicro2Finish}) => {
       <ModalButtons
         textCancel=""
         textConfirm="Próximo"
-        message="Amostras de água foram coletadas no poço artesiano que abastecia o hotel e no 
+        message={<p style={{textAlign:"justify"}}>Amostras de água foram coletadas no poço artesiano que abastecia o hotel e no 
         Rio Manso em que Mark foi nadar no primeiro dia de sua estada. Para analisarmos estas 
         duas amostras, precisamos saber que Bactérias são unicelulares e procariontes (sem núcleo) 
-        e Protozoários são unicelulares e eucariontes (com núcleo)."
+        e Protozoários são unicelulares e eucariontes (com núcleo).</p>}
         onConfirm={() => {
           setShowFirstDialog(false);
           setShowSecondDialog(true);
@@ -311,10 +311,10 @@ const MicroScreen_2 = ({setShowMicroScreen, handleMicro2Finish}) => {
       <ModalButtons
         textCancel="Voltar"
         textConfirm="Próximo"
-        message="Vamos analisar no microscópio óptico a amostra de água coletada no Rio Manso 
-        e em microscópio eletrônico a amostra coletada no poço artesiano, em seguida, comparar 
-        o que é possível observar no microscópio com a informações presentes no laudo da análise 
-        microbiológica da água para obtermos uma conclusão. "
+        message={<p style={{textAlign:"justify"}}>Vamos analisar no microscópio óptico a amostra de água do Rio Manso 
+        e em microscópio eletrônico a amostra do poço artesiano. Em seguida, compare o que observou 
+        com as informações presentes no laudo da análise 
+        microbiológica da água para obtermos uma conclusão. </p>}
         onBack={() => {
           setShowFirstDialog(true);
           setShowSecondDialog(false);

@@ -23,7 +23,7 @@ const LabScreen = ({
   setCurrentStage,
   currentStage,
   setMicroScreen,
-  setShowFirstDialog,
+  setShowQuestion,
 }) => {
   const [showLabScreen, setShowLabScreen] = useState(true);
   const [isBlinkingMicro, setIsBlinkingMicro] = useState(false);
@@ -98,10 +98,8 @@ const LabScreen = ({
   const handleMicro3Finish = () => {
     setShowMicroScreen3(false);
     setShowLabScreen(true);
-    if (currentStage < 10) {
       setCurrentStage(10);
-      setShowFirstDialog(true);
-    }
+      setShowQuestion(true);
   };
   const handleAmostraOrgaoClick = () => {
     setShowMicroScreen3(true);

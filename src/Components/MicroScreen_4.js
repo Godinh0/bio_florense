@@ -374,8 +374,8 @@ const MicroScreen_4 = ({setShowMicroScreen, handleMicro4Finish}) => {
       <ModalButtons
         textCancel=""
         textConfirm="Próximo"
-        message={<p>Durante a investigação, foram coletadas quatro amostras de pelos e cabelos em 
-            locais estratégicos do cenário do crime. Primeiro, é preciso diferenciar se cada amostra 
+        message={<p style={{textAlign:"justify"}}>Durante a investigação, foram coletadas quatro amostras de pelos e cabelos em 
+            locais estratégicos do cenário do suposto crime. Primeiro, é preciso diferenciar se cada amostra 
             é proveniente de humanos ou outros animais e a qual animal refere-se. A técnica consiste no 
             exame microscópico da cor, da espessura e da curvatura dos fios para descobrirmos sua origem. </p>}
         onConfirm={() => {
@@ -391,10 +391,10 @@ const MicroScreen_4 = ({setShowMicroScreen, handleMicro4Finish}) => {
       <ModalButtons
         textCancel="Voltar"
         textConfirm="Próximo"
-        message={<p>Para isso, vamos analisar no microscópio óptico os fios encontrados no: 
+        message={<p style={{textAlign:"justify"}}>Para isso, vamos analisar no microscópio óptico os fios encontrados no: 
             Moletom da vítima,      
             na varanda do chalé e
-            na calça da vítima, após comparar com as imagens disponíveis em <a target="_blank" rel="noreferrer" href="http://www.microlabgallery.com/hair.aspx">http://www.microlabgallery.com/hair.aspx</a>.</p>}
+            na calça da vítima, após comparar com as imagens disponíveis em:<br/> <a target="_blank" rel="noreferrer" href="http://www.microlabgallery.com/hair.aspx">http://www.microlabgallery.com/hair.aspx</a>.</p>}
         onBack={() => {
           setShowFirstDialog(true);
           setShowSecondDialog(false);

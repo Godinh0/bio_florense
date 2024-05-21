@@ -298,9 +298,9 @@ const MicroScreen_1 = ({ setShowMicroScreen1, handleMicro1Finish }) => {
       <ModalButtons
         textCancel=""
         textConfirm="Próximo"
-        message="Olá perito! 
+        message={ <p style={{textAlign:"justify"}}>Olá perito! 
         Temos que analisar se as amostras de sangue encontradas na faca e no caco de vidro são de origem humana. 
-        Para isso, teremos que verificar no microscópio as 2 lâminas de sangue que preparamos (uma contendo a amostra retirada da faca e outra do caco de vidro). "
+        Para isso, teremos que verificar no microscópio as 2 lâminas de sangue que preparamos (uma contendo a amostra retirada da faca e outra do caco de vidro).</p>}
         onConfirm={() => {
           setShowFirstDialog(false);
           setShowSecondDialog(true);
@@ -315,9 +315,8 @@ const MicroScreen_1 = ({ setShowMicroScreen1, handleMicro1Finish }) => {
       <ModalButtons
         textCancel="Voltar"
         textConfirm="Próximo"
-        message="Precisamos observar se as células sanguíneas (hemácias),  
-        apresentam núcleo (sangue de origem animal: peixes, aves, répteis e anfíbios) ou 
-        se as hemácias são anucleadas (sangue de mamíferos, inclusive humanos)"
+        message={<p style={{textAlign:"justify", letterSpacing:"0.5px"}}>Precisamos observar se as células sanguíneas (hemácias) são anucleadas (sangue de mamíferos, 
+          inclusive humanos) ou apresentam núcleo (sangue de outros animais, como peixes, aves, répteis e anfíbios).</p>}
         onBack={() => {
           setShowFirstDialog(true);
           setShowSecondDialog(false);

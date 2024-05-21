@@ -165,15 +165,15 @@ const BloodTestScreen = ({ setShowBloodTestScreen, handleBloodTestFinish }) => {
         textCancel=""
         textConfirm="Próximo"
         message={
-          <p>
-            Os tipos sanguíneos servem para classificar o sangue de acordo com a
-            presença de duas proteínas no plasma, chamadas de aglutinogênio A ou
-            aglutinogênio B. Sendo assim, o tecido sanguíneo foi classificado de
-            acordo com os tipos: A, B, AB e O, conhecido como sistema ABO
+          <p style={{textAlign:"justify"}}>
+            Os tipos sanguíneos servem para classificar o sangue de acordo com a 
+            presença de duas proteínas no plasma, chamadas de aglutinogênio A e
+            aglutinogênio B. Sendo assim, o sangue pode ser classificado nos tipos: A, B, AB e O, 
+            conhecido como sistema ABO.
             <br />
-            <br />E tipo sanguíneo positivo ou negativo? Isso depende do fator Rh, que
-            determina a presença ou a ausência de aglutinina nas hemácias. O
-            tipo sanguíneo que tem Rh- não possui aglutinina, enquanto o Rh+ possui.
+            <br />O tipo sanguíneo também pode ser positivo ou negativo. Isso depende do fator Rh,
+             que determina a presença ou a ausência de aglutinina nas hemácias. O sangue com Rh+ 
+             possui aglutinina, enquanto que o Rh- não possui.
           </p>
         }
         onConfirm={() => {
@@ -190,17 +190,18 @@ const BloodTestScreen = ({ setShowBloodTestScreen, handleBloodTestFinish }) => {
         textCancel="Voltar"
         textConfirm="Próximo"
         message={
-          <p>
-            Para descobrirmos, iremos aplicar os reagentes dos antígenos na
-            amostra de sangue da faca (sangue humano). É necessário colocar em
-            uma lâmina três gotas do sangue e, sobre o ele, os soros: uma gota
-            do soro anti- A, uma do soro anti-B e outra do soro que determina o
-            fator Rh.
+          <p style={{textAlign:"justify"}}>
+            Se descobrimos qual é o tipo sanguíneo na amostra de sangue da faca (sangue humano), 
+            podemos comparar com o tipo sanguíneo dos suspeitos. Você encontrará essa informação 
+            nas fichas dos envolvidos. Para isso, aplique  os reagentes dos antígenos na amostra. 
+            É necessário colocar três gotas do sangue em uma lâmina e, sobre o ele, os soros: uma 
+            gota do soro anti- A, uma do soro anti-B e outra do soro que determina o fator Rh.
+
             <br />
             <br />
-            Se o sangue coagular nas três gotas a pessoa tem o tipo sanguíneo AB
-            e fator RH positivo. Se o sangue não coagular nas três gotas dizemos
-            que a pessoa é do tipo O e fator RH negativo.
+            Se o sangue coagular nas três gotas a pessoa tem o tipo sanguíneo AB e fator RH positivo. 
+            Se o sangue não coagular em nenhuma das três gotas dizemos que a pessoa é do tipo O e fator 
+            RH negativo.
           </p>
         }
         onBack={() => {
