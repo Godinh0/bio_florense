@@ -215,7 +215,7 @@ const App = () => {
             </a>
             <br />
             <br />
-            Orientação: Profa. Dra. Flavia Sant’Anna Rios
+            Orientação: Flavia Sant’Anna Rios
             <br />
             Emails: <br />
             <a
