@@ -178,7 +178,7 @@ const App = () => {
             <br />
             Autoria: Melissa Spíndola Estevam
             <br />
-            Contatos:
+            Contato:
             <br />
             <a
               href="#"
@@ -197,14 +197,8 @@ const App = () => {
             <br />
             Programação: Gabriel Godinho Ferreira
             <br />
-            Contatos: <br />
-            <a
-              href="#"
-              onClick={(e) => copyToClipboard("gabrielgodinho014@gmail.com", e)}
-            >
-              gabrielgodinho014@gmail.com
-            </a>
-            <br />
+            Contato: <br />
+            
             <a
               href="#"
               onClick={(e) =>
@@ -214,10 +208,17 @@ const App = () => {
               gabriel.ferreira4@pucpr.edu.br
             </a>
             <br />
+            <a
+              href="#"
+              onClick={(e) => copyToClipboard("gabrielgodinho014@gmail.com", e)}
+            >
+              gabrielgodinho014@gmail.com
+            </a>
+            <br />
             <br />
             Orientação: Flavia Sant’Anna Rios
             <br />
-            Contatos: <br />
+            Contato: <br />
             <a
               href="#"
               onClick={(e) => copyToClipboard("flaviasrios@ufpr.br", e)}
@@ -231,6 +232,9 @@ const App = () => {
             >
               flaviasrios@gmail.com
             </a>
+            <br/>
+            <br/>
+            Contribuições de ideias e materiais: Luana Zischler e Lucas Paulo B. Fernandes.
           </p>
         }
         onCancel={() => {
