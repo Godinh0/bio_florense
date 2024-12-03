@@ -26,12 +26,16 @@ const Menu = ({ options }) => {
     },
   };
 
-  const handleMouseEnter = (e) => {
-    e.target.style.backgroundColor = styles.buttonHover.backgroundColor;
+  const handleMouseEnter = (e, disabled) => {
+    if (!disabled) {
+      e.target.style.backgroundColor = styles.buttonHover.backgroundColor;
+    }
   };
-
-  const handleMouseLeave = (e) => {
-    e.target.style.backgroundColor = styles.button.backgroundColor;
+  
+  const handleMouseLeave = (e, disabled) => {
+    if (!disabled) {
+      e.target.style.backgroundColor = styles.button.backgroundColor;
+    }
   };
 
   return (
@@ -51,8 +55,8 @@ const Menu = ({ options }) => {
               cursor: option.disabled?(option.disabled===true?"normal":"pointer"):("pointer"),
               transition: "background-color 0.3s ease",
             }}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
+            onMouseEnter={(e) => handleMouseEnter(e, option.disabled)}
+            onMouseLeave={(e) => handleMouseLeave(e, option.disabled)}
             disabled={option.disabled ? option.disabled : false}
           >
             {option.title}

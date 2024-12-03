@@ -148,7 +148,7 @@ const BloodTestScreen = ({ setShowBloodTestScreen, handleBloodTestFinish }) => {
         message={
           <div style={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
           <p>Sendo B-, podemos concluir que o sangue presente no caco de vidro é de Mark</p>
-          <img style={{width:"160%"}} src={MarkRecord}></img>
+          <img style={{width:"100%"}} src={MarkRecord}></img>
           </div>
         }
         onConfirm={() => {
